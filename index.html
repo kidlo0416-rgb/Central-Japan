@@ -1328,20 +1328,139 @@ const tripDays = [
   },
   {
     id:'day2', label:'Day 2 8/21', date:'8/21 (五)', isoDate:'2026-08-21',
-    title:'金澤探索：郵局風景印與冷氣避暑任務',
+    title:'金澤深度探索：老麵包店 × 工藝館 × 美術館 × 東茶屋街',
     weather:{city:'金澤', lat:36.5613, lon:136.6562, temp:'30°C', tempLow:'25°C', rain:'20%', tip:'今日室內景點多，正好趁機吹冷氣避暑，記得幫孩子補水！'},
     activities:[
-      {sortId:'d2-1', time:'09:30', title:'🏛️ 國立工藝館兒童特展', desc:'全室內強冷氣！暑假兒童互動特展，7歲小孩免費，領取專屬尋寶探險地圖！', budget:'公車 530 JPY，大人門票 2,000 JPY', nav:'国立工芸館 金沢', detail:'國立工藝館是日本第一座國立工藝美術館，2020 年搬遷至金澤，暑假常舉辦親子互動特展。'},
-      {sortId:'d2-2', time:'11:00', title:'石川縣立美術館（Le Musee de H）', desc:'享用甜點大師辻口博啟限定的冰涼水蜜桃聖代與精緻點心。', budget:'預算 3,000 JPY', nav:'Le Musee de H 石川県立美術館', tags:[{type:'eat', text:'水蜜桃聖代'}]},
-      {sortId:'d2-3', time:'12:00', title:'近江町市場（いきいき亭）', desc:'上班族私房愛店，海鮮丼醋飯與配料分開裝，新鮮現切超滿足。', budget:'午餐預算 4,000 JPY', nav:'いきいき亭 近江町市場', tags:[{type:'eat', text:'海鮮丼'}]},
-      {sortId:'d2-4', time:'13:30', title:'21世紀美術館', desc:'全冷氣室內，必看「泳池」，從下方往上看的偽潛水視角超夢幻。', nav:'金沢21世紀美術館',
-        photo:'https://commons.wikimedia.org/wiki/Special:FilePath/21st%20Century%20Museum%20of%20Contemporary%20Art%2C%20Kanazawa001.jpg?width=640', photoCredit:'Wikimedia Commons',
-        detail:'由 SANAA 設計，阿根廷藝術家 Leandro Erlich 的《泳池》是館內最著名的常設展品。'},
-      {sortId:'d2-5', time:'15:30', title:'📮 金澤東山郵便局 風景印任務', desc:'前往東茶屋街旁郵局，蓋上印有東茶屋街老街與兼六園燈籠的限定紀念郵戳！', phrase:{jp:'風景印を押してください。', zh:'請幫我蓋上風景印。'}, budget:'郵資約 1,000 JPY', nav:'金澤東山郵便局', tags:[{type:'buy', text:'限定風景印明信片'}]},
-      {sortId:'d2-6', time:'16:45', title:'東茶屋街散策', desc:'傍晚太陽下山轉涼！走在江戶時代石板路，吃一支箔一金箔霜淇淋，金光閃閃打卡照必拍。', budget:'點心費 2,670 JPY', nav:'東茶屋街',
-        photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Higashi%20Chaya%20District%2C%20Kanazawa%20-%20Jul%2019%2C%202011.jpg?width=640', photoCredit:'Wikimedia Commons',
-        tags:[{type:'eat', text:'箔一金箔霜淇淋'}]},
-      {sortId:'d2-7', time:'18:30', title:'洋食 ターバン 金澤咖哩老店', desc:'當地人聚餐首選的濃厚系黑咖哩與金屬盤炸豬排，懷舊昭和氛圍。', budget:'預算 2,500 JPY', nav:'ターバンカレー 金沢', tags:[{type:'order', text:'黑咖哩炸豬排'}]}
+      {
+        sortId:'d2-1', time:'07:50 ~ 09:00',
+        title:'🥐 Hirami Pan 早餐（神級可麗露）',
+        desc:'金澤最知名的百年老屋麵包咖啡館。內用與外帶分開排隊，想吃 Croque Madame 請排內用隊伍；可麗露務必入座後立刻去麵包櫃搶購，通常開店後很快就售罄！',
+        budget:'⏰ 08:00–15:30（建議提前 10 分鐘排隊）｜💴 約 3,000–4,000 JPY／家',
+        nav:'ひらみぱん 金澤',
+        photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Kanazawa_Higashiyama_01.jpg?width=640',
+        photoCredit:'Wikimedia Commons',
+        tags:[{type:'eat', text:'神級可麗露（外帶可）'},{type:'order', text:'克羅克女士三明治（內用限定）'}],
+        detail:'【極致必點 1】可麗露：外皮黑金焦脆帶焦糖與蘭姆酒香，內餡像布丁般濕潤軟嫩，全金澤最出名。\n【極致必點 2】克羅克女士三明治：厚切吐司 + 法式白醬 + 火腿起司 + 半熟太陽蛋，劃開蛋黃流下的瞬間是打卡名場面！\n💡 小提醒：可麗露非常搶手，入座後請先去麵包櫃下單，避免吃完後已被掃空。'
+      },
+      {
+        sortId:'d2-t1', time:'09:10 ~ 09:25',
+        title:'🚌 交通：Hirami Pan ➔ 國立工藝館',
+        desc:'從 Hirami Pan 步行 4 分鐘至「香林坊」4號月台，搭城下町金澤周遊巴士（左迴・綠色車身）1 站，在「廣坂・21世紀美術館」下車，再步行 5–7 分鐘上坡抵達。',
+        budget:'💴 大人 210 JPY / 兒童 110 JPY（ICOCA 直接感應）',
+        detail:'💡 媽媽防呆提醒：若早上 9 點已很熱，強烈建議直接在 Hirami Pan 門口攔計程車（車程 5 分鐘，約 800–1,000 JPY），司機直達工藝館大門口，最省體力！'
+      },
+      {
+        sortId:'d2-2', time:'09:25 ~ 12:00',
+        title:'🏛️ 國立工藝館（媽媽＋孩子）',
+        desc:'全室內強冷氣！暑假兒童互動特展，7 歲小孩免費入場，可領取專屬尋寶探險地圖。紅磚洋房外觀是百年舊軍事建築，粉綠色木窗框超有歐洲童話繪本感，必拍全家福！',
+        budget:'⏰ 09:30–17:30（週一公休）｜💴 大人 1,000 JPY / 7 歲免費',
+        nav:'国立工芸館 金沢',
+        photo:'https://commons.wikimedia.org/wiki/Special:FilePath/National_Craft_Museum_Kanazawa01s3s4500.jpg?width=640',
+        photoCredit:'Wikimedia Commons (CC BY-SA 4.0)',
+        tags:[{type:'buy', text:'7歲免費'}],
+        detail:'這兩棟是百年舊軍事建築，粉綠色與白色的木造窗框非常優雅。📸 帶孩子站在紅磚牆與草地交界處拍過去，很有歐洲童話繪本的感覺。'
+      },
+      {
+        sortId:'d2-t2', time:'12:00 ~ 12:05',
+        title:'🚶 下坡散步合體 ➔ 21世紀美術館',
+        desc:'從工藝館出發，下坡步行約 3–5 分鐘即抵達 21 世紀美術館，兩組人馬冷氣房大合體！'
+      },
+      {
+        sortId:'d2-3', time:'12:05 ~ 14:15',
+        title:'🎨 21世紀美術館＋Fusion 21 午餐',
+        desc:'館內 Fusion 21 義式網美餐廳，吹著冷氣看風景邊用餐。餐後必看「泳池」裝置藝術：一組人在上方往下拍，媽媽帶孩子在地下室往上看，拍出人彷彿站在水底的奇幻照片！',
+        budget:'⏰ 餐廳 10:00–20:00｜🎨 展覽室 10:00–18:00（週五六延至 20:00）',
+        nav:'金沢21世紀美術館',
+        photo:'https://commons.wikimedia.org/wiki/Special:FilePath/21st_Century_Museum_of_Contemporary_Art,_Kanazawa_night_view.jpg?width=640',
+        photoCredit:'Wikimedia Commons (CC BY-SA 3.0)',
+        tags:[{type:'eat', text:'Fusion 21 義式午餐'},{type:'order', text:'泳池裝置藝術（地下室需預約）'}],
+        detail:'📸 必拍【泳池（The Swimming Pool）】：上方往下拍＋地下室往上看，透過藍色水面光影拍出人站在水底的奇幻錯覺照！地下室參觀需購買展覽門票，建議提前確認時段。'
+      },
+      {
+        sortId:'d2-t3', time:'14:15 ~ 14:35',
+        title:'🚌 交通：美術館 ➔ 東茶屋街',
+        desc:'走至美術館東側「廣坂・21世紀美術館」5 號月台，搭城下町金澤周遊巴士（右迴・紅色車身）4 站，在「橋場町（金城樓前）」下車，步行 4 分鐘進入東茶屋街。',
+        budget:'💴 大人 210 JPY / 兒童 110 JPY（ICOCA 直接感應）'
+      },
+      {
+        sortId:'d2-4', time:'14:35 ~ 16:15',
+        title:'🍦 東茶屋街散步＋金箔霜淇淋儀式',
+        desc:'江戶時代石板路老街，街區多數小店約 10:00–17:00 營業。必吃「箔一」金箔霜淇淋（09:00–18:00），拿到後 10 秒內快速拍照，風大金箔會飄走！',
+        budget:'💴 霜淇淋約 800 JPY',
+        nav:'東茶屋街',
+        photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Higashi%20Chaya%20District%2C%20Kanazawa%20-%20Jul%2019%2C%202011.jpg?width=640',
+        photoCredit:'Wikimedia Commons',
+        tags:[{type:'eat', text:'箔一金箔霜淇淋'},{type:'buy', text:'木虫籠老街拍照'}],
+        detail:'📸 必拍 1【木虫籠老街景】：手機人像模式拉近拍攝，背景延伸出江戶時代古色古香的氛圍。\n📸 必拍 2【金箔霜淇淋特寫】：讓孩子雙手捧著霜淇淋、臉湊近準備咬下，太陽光下金箔閃閃發光超吸睛！'
+      },
+      {
+        sortId:'d2-t4', time:'16:15 ~ 16:35',
+        title:'🚌 交通：東茶屋街 ➔ 金澤中央郵局',
+        desc:'走回「橋場町」1 號月台，搭北陸鐵道巴士（車頭寫「金沢駅」的任一班次），坐到「金沢駅西口」下車，步行 2 分鐘至金澤中央郵局。',
+        budget:'💴 大人 210 JPY / 兒童 110 JPY'
+      },
+      {
+        sortId:'d2-5', time:'16:35 ~ 17:05',
+        title:'📮 金澤中央郵局：限定風景印任務',
+        desc:'買限定明信片（郵資 100 JPY），向櫃檯說「風景印をお願いします」，蓋上兼六園徽軫燈籠造型的專屬戳印，帶回台灣最有紀念價值的伴手禮！',
+        budget:'⏰ 週一至五 09:00–19:00 / 週六 09:00–15:00（週日公休）｜💴 郵資約 1,000 JPY',
+        nav:'金沢中央郵便局',
+        phrase:{jp:'風景印をお願いします。', zh:'請幫我蓋風景印。'},
+        tags:[{type:'buy', text:'兼六園燈籠造型風景印'}]
+      },
+      {
+        sortId:'d2-6', time:'17:05 ~ 18:00',
+        title:'🏔 Mont-bell 金澤百番街 Rinto 店',
+        desc:'從郵局步行 3 分鐘穿過車站大廳進入 Rinto 商場，直接吹冷氣逛巨無霸 Mont-bell 旗艦店，採購戶外裝備與登山用品！',
+        budget:'⏰ 10:00–20:00',
+        nav:'モンベル 金沢百番街Rinto店',
+        tags:[{type:'buy', text:'Mont-bell 戶外裝備'}]
+      },
+      {
+        sortId:'d2-7', time:'18:00 ~ 18:40',
+        title:'🏨 飯店小歇充電站',
+        desc:'從 Rinto 商場直接走回東口，步行 3 分鐘回飯店，放下戰利品、讓小學生平躺補電，準備出發吃晚餐！',
+        nav:'金沢スマイルホテル'
+      },
+      {
+        type:'rgroup', title:'🍱 金澤車站晚餐五選一（Anto 館）', note:'全員充電完畢後任選一家，步行 1–3 分鐘全都到！', sortId:'d2-8', options:[
+          {
+            name:'A｜魚がし食堂 中央店',
+            desc:'高 CP 值海鮮天堂！主打豪邁厚切、滿出來的海鮮丼和滿滿炸蝦定食，位於金澤車站西口靠郵局方向。',
+            budget:'⏰ 11:00–21:30（最後點餐 21:00）',
+            nav:'魚がし食堂 金沢駅',
+            tags:[{type:'eat', text:'厚切海鮮丼'},{type:'order', text:'炸蝦定食'}]
+          },
+          {
+            name:'B｜8番拉麵 金澤駅店',
+            desc:'石川縣靈魂排隊拉麵！炒野菜拉麵堆得像小山，上面有寫「8」字的特製魚板，小學生最愛！',
+            budget:'⏰ 10:00–22:00（最後點餐 21:30）',
+            nav:'8番らーめん 金沢駅店',
+            tags:[{type:'order', text:'蔬菜味噌拉麵（8字魚板）'},{type:'order', text:'炒飯'},{type:'order', text:'蝦肉煎餃'}]
+          },
+          {
+            name:'C｜金澤肉食堂',
+            desc:'肉食控爸爸與孩子的絕對首選！主打豪爽黑毛和牛燒肉丼與牛排定食，白飯免費加大。',
+            budget:'⏰ 11:00–22:00（最後點餐 21:30）',
+            nav:'金澤肉食堂 百番街店',
+            tags:[{type:'eat', text:'黑毛和牛燒肉丼'},{type:'order', text:'牛排定食'}]
+          },
+          {
+            name:'D｜GO-GO Curry 金澤駅總本山',
+            desc:'金澤最具代表性的濃郁黑咖哩！不鏽鋼盤上盛著黑咖哩醬、酥脆現炸豬排與高麗菜絲，份量十足。',
+            budget:'⏰ 10:00–22:00（最後點餐 21:30）｜💴 約 2,000–3,500 JPY',
+            nav:'ゴーゴーカレー 金沢駅前店',
+            tags:[{type:'order', text:'炸豬排黑咖哩'},{type:'order', text:'兒童咖哩'}]
+          },
+          {
+            name:'E｜金澤美味壽司（まいもん寿司）',
+            desc:'金澤迴轉壽司頂級天花板！能登半島・日本海當天現撈直送，紅喉魚、富山灣白蝦只有在地才能吃到最新鮮的！',
+            budget:'⏰ 11:00–22:00（最後點餐 21:30）｜💴 約 3,500–6,000 JPY',
+            nav:'金沢まいもん寿司 駅前店',
+            tags:[{type:'eat', text:'紅喉魚（喉黑）握壽司'},{type:'eat', text:'富山灣白蝦握壽司'},{type:'order', text:'味噌魚骨湯'}]
+          }
+        ]
+      }
     ]
   },
   {
