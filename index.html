@@ -6,7 +6,7 @@
 <title>🐉 名古屋金澤親子冒險之旅 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=Klee+One:wght@400;600&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════════════════
    DESIGN SYSTEM — 旅遊手帳 × 龍珠金氣 × 輕毛玻璃
@@ -58,8 +58,8 @@
   --shadow-gold-hover: 0 8px 28px rgba(201,147,58,0.20), 0 2px 8px rgba(0,0,0,0.07);
 
   /* Typography */
-  --font-title:  'M PLUS Rounded 1c', 'Noto Sans TC', -apple-system, sans-serif;
-  --font-body:   'Noto Sans TC', -apple-system, 'PingFang TC', sans-serif;
+  --font-title:  'Zen Maru Gothic', 'Noto Sans TC', -apple-system, sans-serif;
+  --font-body:   'Klee One', 'Noto Sans TC', -apple-system, 'PingFang TC', sans-serif;
 
   /* Legacy aliases (keep JS working) */
   --accent:           var(--red);
@@ -505,15 +505,16 @@ body {
 
 /* Nav button */
 .nav-btn {
-  border: none; border-radius: 999px; padding: 7px 14px;
-  font-size: 11.5px; font-weight: 700;
-  background: var(--red); color: #fff;
-  cursor: pointer; display: flex; align-items: center; gap: 4px;
-  font-family: var(--font-title);
-  box-shadow: 0 2px 10px var(--red-glow);
-  transition: transform 0.15s, box-shadow 0.15s;
+  border: none; border-radius: 50%;
+  width: 38px; height: 38px; min-width: unset; padding: 0;
+  font-size: 18px; line-height: 1;
+  background: rgba(0,0,0,0.06); color: inherit;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  box-shadow: none;
+  transition: transform 0.15s, background 0.15s;
+  -webkit-tap-highlight-color: transparent;
 }
-.nav-btn:active { transform: scale(0.96); }
+.nav-btn:active { transform: scale(0.90); background: rgba(0,0,0,0.10); }
 
 /* More popover */
 .item-actions { position: relative; flex: 0 0 auto; }
@@ -1271,17 +1272,56 @@ const tripDays = [
     title:'抵達金澤：解鎖交通裝備',
     weather:{city:'金澤', lat:36.5613, lon:136.6562, temp:'29°C', tempLow:'24°C', rain:'10%', tip:'8月金澤炎熱，出門前記得塗防曬，並準備充足飲水！'},
     activities:[
-      {sortId:'d1-1', time:'12:10 ~ 16:05', title:'虎航 IT252 航班任務', desc:'桃園 T1 ➔ 小松 KMQ，正式啟動親子日本之旅！', tags:[{type:'reserve', text:'航班 IT252'}]},
+      {sortId:'d1-0', time:'07:30', title:'🚗 台中自行開車出發 ➔ 桃園機場 T1', desc:'建議走國道1號北上，全程約 1.5 至 2 小時（視路況）。虎航 IT252 起飛時間 12:10，請務必於起飛前 2.5 小時（09:40 前）完成報到手續！', budget:'📌 報到截止：09:40 前｜💰 油資 + 過路費約 500 TWD', tags:[{type:'reserve', text:'虎航 IT252 報到截止 09:40'}], detail:'建議將車停在桃園機場長期停車場 P3（T1 對側），步行進入 T1 出境大廳。虎航櫃台位於 T1 三樓 D 區。行李超重費較貴，建議出發前再次確認行李重量！'},
+      {sortId:'d1-1', time:'12:10 ~ 16:05', title:'✈️ 虎航 IT252 航班任務', desc:'桃園 T1 ➔ 小松 KMQ，正式啟動親子日本之旅！', tags:[{type:'reserve', text:'航班 IT252'}]},
       {sortId:'d1-2', time:'16:30', title:'小松機場大巴', desc:'於小松機場大巴站搭乘（金澤站線），直達金澤站西口，輕鬆好上車。', budget:'交通：3,250 JPY（全家）', nav:'小松機場', detail:'小松機場大巴站位於入境大廳出口附近，標示清楚不易迷路。車程約 50-55 分鐘直達金澤站西口。'},
       {sortId:'d1-3', time:'17:15', title:'🚉 購買北陸限定版 ICOCA 卡', desc:'前往【IR石川鐵道】自動售票機，購買實體限定卡面卡，未來搭車超方便。', phrase:{jp:'ICOCAカードを2枚、子供用を1枚購入したいです。', zh:'我想購買兩張 ICOCA 卡，一張兒童卡。'}, budget:'每張儲值 3,000 JPY（含 500 JPY 押金）', nav:'IR石川鉄道 金沢駅', tags:[{type:'buy', text:'北陸限定 ICOCA 卡面'}]},
       {sortId:'d1-4', time:'17:45', title:'金澤微笑酒店 Check-in', desc:'從金澤站東口步行約 3-5 分鐘抵達飯店，放下行李準備出發！', nav:'金沢スマイルホテル'},
       {sortId:'d1-5', time:'19:30', title:'金澤站鼓門夜景', desc:'巨大純木造結構，晚上點燈後最適合拍下溫暖的古典大片，全家來打卡吧！', nav:'金沢駅 鼓門',
         photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Tsuzumimon%20Gate%20in%20front%20of%20Kanazawa%20Station%20at%20night%2020150120.JPG?width=640', photoCredit:'Wikimedia Commons (CC BY-SA 4.0)',
         detail:'鼓門高 13.7 公尺，是仿照能劇鼓所設計的木造大門，CNN 曾將金澤站列為世界最美車站之一。'},
-      {type:'rgroup', title:'🍱 金澤晚餐三強', note:'三選一，全家現場挑！', sortId:'d1-6', options:[
-        {name:'魚がし食堂（車站 Rinto 店）', desc:'10種厚切生魚片丼、特大炸蝦定食。白飯加大免費分裝給小孩。', budget:'預算 3,500 JPY', phrase:{jp:'子供と分けて食べてもいいですか？', zh:'可以和小孩分著吃嗎？'}, nav:'魚がし食堂 Rinto店', tags:[{type:'eat', text:'厚切生魚片丼'},{type:'order', text:'特大炸蝦定食'}]},
-        {name:'8番拉麵（金澤站店）', desc:'甘甜蔬菜味噌拉麵，有送餐機器人，小朋友超興奮。', budget:'預算 2,800 JPY', nav:'8番らーめん 金沢駅店', tags:[{type:'order', text:'蔬菜味噌拉麵'}]},
-        {name:'金澤肉食堂（百番街店）', desc:'能登牛赤身丼、極厚牛排丼，白飯免費加大，肉食派終極選擇。', budget:'預算 4,500 JPY', nav:'金澤肉食堂 百番街店', tags:[{type:'eat', text:'能登牛赤身丼'}]}
+      {type:'rgroup', title:'🍱 金澤晚餐五選一', note:'全家現場挑一家，都在車站步行範圍內！', sortId:'d1-6', options:[
+        {
+          name:'A｜八番拉麵 金澤站店',
+          desc:'東口出站步行約 2 分鐘。在地人首選，可共食、無座位費。有中文平板點餐，送餐機器人超吸引小孩！位置在金澤站內郵局正對面。',
+          budget:'🕙 10:00–22:00｜💴 約 2,500–3,500 JPY／家',
+          nav:'8番らーめん 金沢駅店',
+          tags:[{type:'order', text:'味噌蔬菜拉麵（8字魚板）'},{type:'order', text:'日式炒飯'},{type:'order', text:'蝦肉煎餃'}],
+          detail:'【在地人首選】招牌是帶有甘甜感的味噌蔬菜拉麵，湯頭清爽不膩，魚板印有品牌8字。可共食、無低消，份量適合親子分享。'
+        },
+        {
+          name:'B｜魚がし食堂（車站 Rinto 店）',
+          desc:'熟食派：特大炸蝦定食（2,000 JPY）巨無霸雙主菜首選；綜合炸物定食（1,700 JPY）炸蝦魚牡蠣全家愛；炸雞塊定食（1,300 JPY）7歲安全牌。生魚片派：特上綜合海鮮丼（1,800 JPY）超高CP值！10種厚切含炙燒喉黑魚；特上生魚片定食（2,500 JPY）當日港直送。',
+          budget:'🕙 11:00–15:00, 16:30–21:00｜💴 約 3,000–4,500 JPY／家',
+          nav:'魚がし食堂 Rinto店',
+          tags:[{type:'eat', text:'特上綜合海鮮丼 1,800JPY'},{type:'order', text:'特大炸蝦定食 2,000JPY'},{type:'order', text:'綜合炸物定食 1,700JPY'}],
+          phrase:{jp:'子供と分けて食べてもいいですか？', zh:'可以和小孩分著吃嗎？'},
+          detail:'白飯加大免費，可請店員分成小碗給孩子。特大炸蝦定食份量驚人，包含兩隻手掌長的大炸蝦 + 烤魚，肉食派首選。'
+        },
+        {
+          name:'C｜金澤肉食堂（百番街店）',
+          desc:'觀光客居多，可共食，白飯免費加大。位子少，客滿需門口填單排隊。適合喜歡牛肉料理的家庭。',
+          budget:'🕙 11:00–21:00｜💴 約 4,000–5,500 JPY／家',
+          nav:'金澤肉食堂 百番街店',
+          tags:[{type:'eat', text:'能登牛赤身丼'},{type:'order', text:'極厚牛排丼 200g'},{type:'order', text:'鹽蔥牛舌丼'}],
+          detail:'【觀光客居多】能登牛是石川縣品牌和牛，赤身丼油花分布均勻、肉味濃厚。無座位費，但用餐時間人潮多建議提早到。'
+        },
+        {
+          name:'D｜Go Go Curry 金澤車站店',
+          desc:'金澤名物咖哩！黑咖哩是在地特色，醬汁深黑濃稠、略帶甜鹹，配炸豬排超對味。有兒童咖哩選項，孩子接受度高。',
+          budget:'💴 約 2,000–3,500 JPY／家',
+          nav:'ゴーゴーカレー 金沢駅前店',
+          tags:[{type:'order', text:'炸豬排咖哩'},{type:'order', text:'金澤黑咖哩'},{type:'order', text:'兒童咖哩'}],
+          detail:'Go Go Curry 源自金澤，是當地最具代表性的B級美食。黑咖哩以長時間熬煮的深色醬汁聞名，搭配大份白飯份量超值。'
+        },
+        {
+          name:'E｜金澤美味壽司',
+          desc:'壽司派首選！金澤近日本海，紅喉魚（喉黑）是北陸限定頂級食材，只有在當地才能吃到最新鮮的。',
+          budget:'💴 約 3,500–6,000 JPY／家',
+          nav:'金沢 回転寿司 もりもり寿司 金沢駅店',
+          tags:[{type:'eat', text:'百萬石握壽司'},{type:'eat', text:'紅喉魚（喉黑）握壽司'},{type:'order', text:'味噌魚骨湯'}],
+          detail:'喉黑魚又稱紅喉魚，是北陸地區最具代表的高級魚種，油脂豐富入口即化，只有在日本海沿岸才能吃到最新鮮的狀態。'
+        }
       ]},
       {sortId:'d1-7', time:'21:00', title:'🛒 Marue 元菊店 在地大型超市', desc:'從金澤站西口步行約 12 分鐘。大買 8 月盛產水蜜桃、晴王葡萄與能登鮮奶！', budget:'採購預算 2,000 JPY', nav:'マルエー 元菊店', tags:[{type:'buy', text:'水蜜桃／晴王葡萄／能登鮮奶'}]}
     ]
@@ -1796,7 +1836,7 @@ function renderDay(day){
           ${opt.phrase?`<div class="phrase-box"><span class="phrase-jp">🗣️ ${opt.phrase.jp}</span><span class="phrase-zh">${opt.phrase.zh}</span></div>`:''}
           ${opt.budget?`<div class="activity-budget">💰 ${opt.budget}</div>`:''}
           ${renderDetailToggle(detailId,opt.detail)}
-          <div class="activity-footer"><button class="nav-btn" onclick="openMapsPopup('${escapeQ(opt.name)}','${escapeQ(opt.nav||opt.name)}')">🗺️ 導覽</button></div>
+          <div class="activity-footer"><button class="nav-btn" onclick="openMapsPopup('${escapeQ(opt.name)}','${escapeQ(opt.nav||opt.name)}')">📍</button></div>
         </div>`;
       });
       html+='</div></div>';
@@ -1827,7 +1867,7 @@ function renderDay(day){
             ${act.phrase?`<div class="phrase-box"><span class="phrase-jp">🗣️ ${act.phrase.jp}</span><span class="phrase-zh">${act.phrase.zh}</span></div>`:''}
             ${act.budget?`<div class="activity-budget">💰 ${act.budget}</div>`:''}
             ${renderDetailToggle(detailId,act.detail)}
-            ${act.nav?`<div class="activity-footer"><button class="nav-btn" onclick="openMapsPopup('${escapeQ(act.title)}','${escapeQ(act.nav)}')">🗺️ 導覽</button></div>`:''}
+            ${act.nav?`<div class="activity-footer"><button class="nav-btn" onclick="openMapsPopup('${escapeQ(act.title)}','${escapeQ(act.nav)}')">📍</button></div>`:''}
             ${isEditing?`<div class="inline-edit-form" onclick="event.stopPropagation()">
               <div class="inline-edit-row"><input type="text" id="edit-time-${act.sortId}" placeholder="時間" value="${escapeH(act.time||'')}"></div>
               <input type="text" id="edit-title-${act.sortId}" placeholder="標題" value="${escapeH(act.title||'')}">
