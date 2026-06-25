@@ -960,6 +960,164 @@ body {
 .activity-card.dragging  { opacity: 0.42; }
 .activity-card.drag-over { box-shadow: 0 0 0 2px var(--gold), var(--shadow-sm); }
 
+/* ════════════════════════════════
+   DAY DRAGON BALL WIDGET
+   ════════════════════════════════ */
+.day-dragonball-wrap {
+  display: flex; align-items: center; gap: 14px;
+  padding: 13px 16px; border-radius: var(--r-lg);
+  background: var(--surface);
+  border: 1px solid rgba(255,255,255,0.82);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer; user-select: none;
+  transition: transform 0.18s, box-shadow 0.18s;
+  position: relative; overflow: hidden;
+}
+.day-dragonball-wrap:active { transform: scale(0.98); }
+.day-dragonball-wrap:hover  { box-shadow: var(--shadow-gold-hover); transform: translateY(-2px); }
+
+/* The orb itself */
+.day-db-orb {
+  position: relative; flex: 0 0 60px; width: 60px; height: 60px;
+  border-radius: 50%;
+  transition: filter 0.45s ease, box-shadow 0.45s ease, background 0.45s ease, border-color 0.45s ease;
+}
+
+/* ── DIM: crystal glass ball ── */
+.day-db-orb.dim {
+  /* 立體球體感：左上白色高光 → 中間體色 → 右下暗部 */
+  background:
+    radial-gradient(circle at 34% 28%, rgba(255,255,255,0.82) 0%, rgba(255,255,255,0) 40%),
+    radial-gradient(circle at 65% 72%, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0) 40%),
+    radial-gradient(circle at 50% 50%, #E8C87A 0%, #C09040 45%, #7A5010 100%);
+  border: 1.5px solid rgba(255,255,255,0.55);
+  box-shadow:
+    inset 0 2px 6px rgba(255,255,255,0.45),
+    inset 0 -3px 8px rgba(0,0,0,0.18),
+    0 3px 10px rgba(0,0,0,0.12);
+  /* 灰白半透明水晶球：去色 + 半透明 */
+  filter: grayscale(1) opacity(0.4);
+}
+
+/* ── LIT: vivid classic Dragon Ball ── */
+.day-db-orb.lit {
+  /* 傳統龍珠橘黃：左上強高光 + 中橘 + 底部深橘 */
+  background:
+    radial-gradient(circle at 32% 26%, rgba(255,255,220,0.95) 0%, rgba(255,240,100,0.6) 22%, rgba(255,255,255,0) 42%),
+    radial-gradient(circle at 68% 74%, rgba(180,60,0,0.30) 0%, rgba(180,60,0,0) 45%),
+    radial-gradient(circle at 50% 50%, #FFE050 0%, #FF9800 38%, #E65000 72%, #B03000 100%);
+  border: 2px solid rgba(255,210,60,0.80);
+  box-shadow:
+    inset 0 3px 8px rgba(255,255,180,0.60),
+    inset 0 -4px 10px rgba(140,40,0,0.25),
+    0 0 0 3px rgba(255,180,20,0.18),
+    0 4px 16px rgba(220,120,0,0.50),
+    0 0 28px rgba(255,180,0,0.35);
+  filter: none;
+  animation: dbDayGlow 2.6s ease-in-out infinite;
+}
+@keyframes dbDayGlow {
+  0%,100% {
+    box-shadow:
+      inset 0 3px 8px rgba(255,255,180,0.60),
+      inset 0 -4px 10px rgba(140,40,0,0.25),
+      0 0 0 3px rgba(255,180,20,0.18),
+      0 4px 16px rgba(220,120,0,0.50),
+      0 0 28px rgba(255,180,0,0.35);
+  }
+  50% {
+    box-shadow:
+      inset 0 3px 8px rgba(255,255,180,0.60),
+      inset 0 -4px 10px rgba(140,40,0,0.25),
+      0 0 0 6px rgba(255,180,20,0.26),
+      0 6px 24px rgba(220,120,0,0.65),
+      0 0 48px rgba(255,180,0,0.55);
+  }
+}
+
+/* Primary highlight — top-left glint (both states) */
+.day-db-orb::before {
+  content: ''; position: absolute;
+  top: 9px; left: 11px;
+  width: 16px; height: 10px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.70);
+  transform: rotate(-30deg);
+  pointer-events: none; z-index: 3;
+  filter: blur(1px);
+}
+/* Secondary micro-glint */
+.day-db-orb::after {
+  content: ''; position: absolute;
+  top: 14px; left: 20px;
+  width: 6px; height: 4px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.45);
+  transform: rotate(-30deg);
+  pointer-events: none; z-index: 3;
+  filter: blur(0.5px);
+}
+
+/* Stars container */
+.day-db-stars {
+  position: absolute; inset: 0; display: flex; align-items: center;
+  justify-content: center; flex-wrap: wrap; gap: 2px;
+  padding: 16px 10px 10px 10px;
+  z-index: 2;
+}
+.day-db-star {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #CC2000;
+  border: 1px solid rgba(255,60,10,0.45);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.40);
+  flex: 0 0 auto;
+}
+/* Lit stars: vivid red with glow */
+.day-db-orb.lit .day-db-star {
+  background: #DD1800;
+  border-color: rgba(255,80,20,0.6);
+  box-shadow: 0 0 5px rgba(255,60,10,0.70), 0 1px 2px rgba(0,0,0,0.25);
+}
+/* Dim stars: still visible through grayscale */
+.day-db-orb.dim .day-db-star {
+  background: #AA3300;
+  border-color: rgba(180,60,10,0.4);
+  box-shadow: none;
+}
+
+/* Text side */
+.day-db-text { flex: 1; min-width: 0; }
+.day-db-label {
+  font-family: var(--font-title); font-size: 14px; font-weight: 700; color: var(--ink);
+  line-height: 1.3; margin-bottom: 3px;
+}
+.day-db-sublabel {
+  font-family: var(--font-body); font-size: 11px; color: var(--ink-soft); font-weight: 400; line-height: 1.5;
+}
+.day-db-sublabel.lit-text { color: var(--gold); font-weight: 600; }
+
+/* Undo hint */
+.day-db-undo {
+  font-family: var(--font-body); font-size: 10px; color: var(--ink-soft);
+  margin-top: 4px; opacity: 0.7;
+}
+
+/* Toast notification */
+.db-toast {
+  position: fixed; bottom: 140px; left: 50%; transform: translateX(-50%) translateY(20px);
+  z-index: 500; pointer-events: none;
+  background: rgba(20,14,6,0.88); backdrop-filter: blur(12px);
+  color: #fff; border-radius: 999px; padding: 10px 20px;
+  font-family: var(--font-title); font-size: 13px; font-weight: 700;
+  white-space: nowrap;
+  border: 1px solid rgba(232,184,75,0.5);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25), 0 0 18px rgba(232,184,75,0.3);
+  opacity: 0; transition: opacity 0.25s, transform 0.25s;
+  display: flex; align-items: center; gap: 8px;
+}
+.db-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.db-toast-icon { font-size: 17px; }
+
 /* ── Lego mode ── */
 .lego-mode .activity-card { border-radius: 13px !important; }
 .lego-mode .activity-card:nth-of-type(odd)  { background: rgba(255,245,235,0.88); }
@@ -1016,10 +1174,7 @@ input:focus, textarea:focus, select:focus {
     <span class="nav-icon">🗺️</span>
     <span class="nav-label">行程</span>
   </button>
-  <button class="nav-tab" data-tab="dragonballs" onclick="switchTab('dragonballs')">
-    <span class="nav-icon">🐉</span>
-    <span class="nav-label">集龍珠</span>
-  </button>
+
   <button class="nav-tab" data-tab="packing" onclick="switchTab('packing')">
     <span class="nav-icon">🎒</span>
     <span class="nav-label">打包</span>
@@ -1073,6 +1228,12 @@ input:focus, textarea:focus, select:focus {
 
 <!-- BURST OVERLAY (Dragon Ball unlock effect) -->
 <div class="burst-overlay" id="burst-overlay"></div>
+
+<!-- DAY DRAGONBALL TOAST -->
+<div class="db-toast" id="db-toast">
+  <span class="db-toast-icon">🐉</span>
+  <span id="db-toast-msg"></span>
+</div>
 
 <script>
 /* =========================================================
@@ -1226,6 +1387,9 @@ const sosHotels = [
   {city:'名古屋', name:'VIA INN 名古屋'}
 ];
 
+/* Day dragon ball lit state (per day, index 0-6) */
+let dayBallLit = {};   // e.g. { day1: true, day3: true }
+
 let dailyExpenses = {
   day1:[{id:'e1-1',name:'機場大巴',cat:'交通',amount:3250,payer:'自己'},{id:'e1-2',name:'ICOCA 卡儲值',cat:'交通',amount:6000,payer:'自己'},{id:'e1-3',name:'晚餐（魚がし食堂）',cat:'餐飲',amount:3500,payer:'朋友'},{id:'e1-4',name:'Marue 超市採購',cat:'雜支/採購',amount:2000,payer:'自己'}],
   day2:[{id:'e2-1',name:'城下町周遊巴士',cat:'交通',amount:2120,payer:'自己'},{id:'e2-2',name:'國立工藝館門票',cat:'門票/娛樂',amount:2000,payer:'朋友'},{id:'e2-3',name:'Le Musee de H 甜點',cat:'餐飲',amount:3000,payer:'自己'},{id:'e2-4',name:'近江町市場午餐',cat:'餐飲',amount:4000,payer:'朋友'},{id:'e2-5',name:'東山郵局風景印',cat:'雜支/採購',amount:1000,payer:'自己'},{id:'e2-6',name:'金箔霜淇淋',cat:'餐飲',amount:2670,payer:'自己'},{id:'e2-7',name:'晚餐（ターバンカレー）',cat:'餐飲',amount:2500,payer:'朋友'}],
@@ -1243,15 +1407,6 @@ const dayDateInfo = {
   day7:{weekday:'Wed',date:'26',month:'08月'}
 };
 
-const dbSpots = [
-  {id:'db-0',stars:'★',icon:'🚉',name:'金澤車站'},
-  {id:'db-1',stars:'★★',icon:'🎨',name:'21世紀美術館'},
-  {id:'db-2',stars:'★★★',icon:'🍵',name:'東茶屋街'},
-  {id:'db-3',stars:'★★★★',icon:'⛩️',name:'白川鄉'},
-  {id:'db-4',stars:'★★★★★',icon:'🏘️',name:'高山老街'},
-  {id:'db-5',stars:'★★★★★★',icon:'🏯',name:'名古屋城'},
-  {id:'db-6',stars:'★★★★★★★',icon:'⛩️',name:'熱田神宮'}
-];
 
 const aiPresetTopics = [
   {key:'fish',user:'魚がし食堂的白飯可以加大分裝給小孩嗎？',reply:'可以的喔！魚がし食堂白飯加大是免費服務，跟店員說「子供と分けて食べてもいいですか？」就會幫你多分一個小碗，記得先抽號碼牌盯進度！'},
@@ -1289,7 +1444,6 @@ let editingPackKey = null;
 let editingShoppingId = null;
 let shoppingChecked = {};
 let customShoppingItems = [];
-let dbUnlocked = {};
 let savedOrder = {};
 let activityEdits = {};
 let activityDeletes = {};
@@ -1305,7 +1459,7 @@ function initStorage(){
   packingChecked = loadFromStorage('jp2026_packing_v1',{});
   shoppingChecked = loadFromStorage('jp2026_shop_checked',{});
   customShoppingItems = loadFromStorage('jp2026_shop_custom',[]);
-  dbUnlocked = loadFromStorage('jp2026_db_unlocked',{});
+  dayBallLit = loadFromStorage('jp2026_dayball_lit',{});
   savedOrder = loadFromStorage('jp2026_order_v1',{});
   activityEdits = loadFromStorage('jp2026_act_edits',{});
   activityDeletes = loadFromStorage('jp2026_act_deletes',{});
@@ -1430,6 +1584,118 @@ function weatherIconFromRain(rainPct){
 }
 
 /* =========================================================
+   DAY DRAGON BALL WIDGET
+   ========================================================= */
+const DAY_BALL_NAMES = ['一星珠','二星珠','三星珠','四星珠','五星珠','六星珠','七星珠'];
+const DAY_BALL_STARS = [1,2,3,4,5,6,7];
+
+function renderDayDragonBall(dayId, dayIndex){
+  const lit = !!dayBallLit[dayId];
+  const starCount = DAY_BALL_STARS[dayIndex];
+  const ballName = DAY_BALL_NAMES[dayIndex];
+  const dayNum = dayIndex + 1;
+
+  // Build star dots
+  let starDots = '';
+  // Layout: up to 3 per row, centred
+  for(let i=0;i<starCount;i++){
+    starDots += '<div class="day-db-star"></div>';
+  }
+
+  const labelText = lit
+    ? `Day ${dayNum}・${ballName} ✦ 任務達成！`
+    : `Day ${dayNum}・點亮${ballName}`;
+  const subText = lit
+    ? `第 ${dayNum} 天行程圓滿完成 🎉`
+    : `行程結束後點擊此龍珠來記錄`;
+  const undoText = lit ? '（再次點擊可取消）' : '';
+
+  return `
+  <div class="day-dragonball-wrap fade-up" onclick="toggleDayBall('${dayId}',${dayIndex})" id="day-db-wrap-${dayId}">
+    <div class="day-db-orb ${lit?'lit':'dim'}" id="day-db-orb-${dayId}">
+      <div class="day-db-stars">${starDots}</div>
+    </div>
+    <div class="day-db-text">
+      <div class="day-db-label" id="day-db-label-${dayId}">${labelText}</div>
+      <div class="day-db-sublabel ${lit?'lit-text':''}" id="day-db-sub-${dayId}">${subText}</div>
+      ${undoText ? `<div class="day-db-undo" id="day-db-undo-${dayId}">${undoText}</div>` : `<div class="day-db-undo" id="day-db-undo-${dayId}"></div>`}
+    </div>
+  </div>`;
+}
+
+let _toastTimer = null;
+function showDayBallToast(msg){
+  const toast = document.getElementById('db-toast');
+  const msgEl = document.getElementById('db-toast-msg');
+  if(!toast||!msgEl) return;
+  msgEl.textContent = msg;
+  toast.classList.add('show');
+  if(_toastTimer) clearTimeout(_toastTimer);
+  _toastTimer = setTimeout(()=>{ toast.classList.remove('show'); },2800);
+}
+
+function toggleDayBall(dayId, dayIndex){
+  const wasLit = !!dayBallLit[dayId];
+  dayBallLit[dayId] = !wasLit;
+  saveToStorage('jp2026_dayball_lit', dayBallLit);
+
+  const nowLit = dayBallLit[dayId];
+  const dayNum = dayIndex + 1;
+  const ballName = DAY_BALL_NAMES[dayIndex];
+
+  // Update orb class
+  const orb = document.getElementById('day-db-orb-'+dayId);
+  if(orb){ orb.className = 'day-db-orb ' + (nowLit ? 'lit' : 'dim'); }
+
+  // Update text
+  const label = document.getElementById('day-db-label-'+dayId);
+  const sub   = document.getElementById('day-db-sub-'+dayId);
+  const undo  = document.getElementById('day-db-undo-'+dayId);
+  if(label) label.textContent = nowLit ? `Day ${dayNum}・${ballName} ✦ 任務達成！` : `Day ${dayNum}・點亮${ballName}`;
+  if(sub){
+    sub.textContent = nowLit ? `第 ${dayNum} 天行程圓滿完成 🎉` : `行程結束後點擊此龍珠來記錄`;
+    sub.className = 'day-db-sublabel' + (nowLit?' lit-text':'');
+  }
+  if(undo) undo.textContent = nowLit ? '（再次點擊可取消）' : '';
+
+  // Toast
+  if(nowLit){
+    // Micro burst on the orb
+    triggerOrbBurst(dayId);
+    showDayBallToast(`🌟 第 ${dayNum} 天任務達成！順利取得${ballName}！`);
+  } else {
+    showDayBallToast(`第 ${dayNum} 天龍珠已熄滅`);
+  }
+}
+
+function triggerOrbBurst(dayId){
+  const orb = document.getElementById('day-db-orb-'+dayId);
+  if(!orb) return;
+  const rect = orb.getBoundingClientRect();
+  const cx = rect.left + rect.width/2;
+  const cy = rect.top + rect.height/2;
+  const overlay = document.getElementById('burst-overlay');
+  overlay.innerHTML = '';
+
+  // Flash
+  const flash = document.createElement('div'); flash.className='burst-flash';
+  flash.style.cssText=`position:fixed;left:${cx-44}px;top:${cy-44}px;width:88px;height:88px;`;
+  overlay.appendChild(flash);
+
+  const colors = ['#FFD700','#E8B84B','#FFF0A0','#FFFFFF','#FFB800'];
+  for(let i=0;i<12;i++){
+    const p = document.createElement('div'); p.className='burst-particle';
+    const angle = (i/12)*360;
+    const dist = 36 + Math.random()*30;
+    const tx = Math.cos(angle*Math.PI/180)*dist+'px';
+    const ty = Math.sin(angle*Math.PI/180)*dist+'px';
+    p.style.cssText = `left:${cx}px;top:${cy}px;background:${colors[i%colors.length]};--tx:${tx};--ty:${ty};width:7px;height:7px;animation-delay:${i*0.015}s;`;
+    overlay.appendChild(p);
+  }
+  setTimeout(()=>{ overlay.innerHTML=''; }, 700);
+}
+
+/* =========================================================
    RENDER: ITINERARY
    ========================================================= */
 function renderItinerary(){
@@ -1503,6 +1769,12 @@ function renderDay(day){
     <div class="weather-source" id="weather-source-${day.id}">載入天氣...</div>
     <div class="weather-tip">${day.weather.tip}</div>
   </div>`;
+
+  // Day dragon ball widget
+  const dayIndex = tripDays.findIndex(d=>d.id===day.id);
+  if(dayIndex>=0 && dayIndex<7){
+    html += renderDayDragonBall(day.id, dayIndex);
+  }
 
   html+=`<div class="activity-list" id="activity-list-${day.id}" data-day="${day.id}" style="display:flex;flex-direction:column;gap:10px;">`;
   day.activities.forEach((act,idx)=>{
@@ -1631,89 +1903,6 @@ function attachDragHandlers(dayId){
       if(before) list.insertBefore(dragState.el,item); else list.insertBefore(dragState.el,item.nextSibling);
     });
   });
-}
-
-/* =========================================================
-   RENDER: DRAGON BALLS
-   ========================================================= */
-function renderDragonBalls(){
-  const allUnlocked = dbSpots.every(s=>dbUnlocked[s.id]);
-  let html='<div class="tab-inner">';
-
-  if(allUnlocked){
-    html+=`<div class="glass-card dragon-wish-banner show fade-up" style="padding:18px;">
-      <div style="font-size:32px;margin-bottom:8px;">🐉✨</div>
-      <div class="dragon-wish-title">七顆龍珠全部集齊！</div>
-      <div class="dragon-wish-sub">神龍降臨！你們這趟旅程征服了金澤・高山・名古屋全境！</div>
-    </div>`;
-  }
-
-  html+=`<div class="glass-card dragonball-section fade-up delay-1">
-    <div class="dragonball-header">
-      <div class="dragonball-title">🐉 景點集章龍珠任務</div>
-      <div class="dragonball-subtitle">集齊 7 顆龍珠・召喚神龍！每到一個景點就蓋章解鎖吧！</div>
-    </div>
-    <div class="dragonball-grid">`;
-
-  dbSpots.forEach((spot,i)=>{
-    const unlocked=!!dbUnlocked[spot.id];
-    html+=`<div class="db-item" onclick="unlockDragonBall('${spot.id}',event)">
-      <div class="db-orb ${unlocked?'unlocked':'locked'}">
-        ${unlocked?`<div class="db-stars">${spot.stars}</div><div class="db-icon-inner">${spot.icon}</div>`:'<span style="font-size:20px;opacity:0.3">◯</span>'}
-      </div>
-      <div class="db-name ${unlocked?'unlocked-name':''}">${spot.name}</div>
-    </div>`;
-  });
-
-  html+=`</div>
-    <div style="text-align:center;margin-top:14px;font-size:11px;color:var(--ink-soft);font-weight:600;">
-      已集章 ${Object.keys(dbUnlocked).filter(k=>dbUnlocked[k]).length} / 7 顆龍珠
-    </div>
-  </div></div>`;
-  document.getElementById('tab-content').innerHTML=html;
-}
-
-function unlockDragonBall(id, evt){
-  if(dbUnlocked[id]) return;
-  dbUnlocked[id]=true;
-  saveToStorage('jp2026_db_unlocked',dbUnlocked);
-  // Burst animation
-  const overlay=document.getElementById('burst-overlay');
-  overlay.innerHTML='';
-  const rect=evt.currentTarget.getBoundingClientRect();
-  const cx=rect.left+rect.width/2; const cy=rect.top+rect.height/2;
-  const flash=document.createElement('div');
-  flash.className='burst-flash';
-  flash.style.cssText=`position:fixed;left:${cx-50}px;top:${cy-50}px;width:100px;height:100px;`;
-  overlay.appendChild(flash);
-  const colors=['#FF3B30','#FFD700','#007AFF','#FF6B6B','#FFB800','#FF3B30'];
-  for(let i=0;i<16;i++){
-    const p=document.createElement('div');
-    const angle=(i/16)*360; const dist=60+Math.random()*60;
-    const tx=Math.cos(angle*Math.PI/180)*dist+'px'; const ty=Math.sin(angle*Math.PI/180)*dist+'px';
-    p.className='burst-particle';
-    p.style.cssText=`left:${cx}px;top:${cy}px;background:${colors[i%colors.length]};--tx:${tx};--ty:${ty};animation-delay:${i*0.02}s;`;
-    overlay.appendChild(p);
-  }
-  setTimeout(()=>{ overlay.innerHTML=''; },800);
-  // Check if all 7 collected
-  const allDone=dbSpots.every(s=>dbUnlocked[s.id]);
-  if(allDone){ triggerDragonCelebration(); }
-  else { renderDragonBalls(); }
-}
-
-function triggerDragonCelebration(){
-  const cel=document.createElement('div');
-  cel.className='saiyan-celebrate';
-  document.body.appendChild(cel);
-  for(let i=0;i<60;i++){
-    const c=document.createElement('div');
-    c.className='confetti-piece';
-    const colors=['#FF3B30','#FFD700','#007AFF','#FF6B6B','#22C55E','#A855F7'];
-    c.style.cssText=`left:${Math.random()*100}vw;background:${colors[Math.floor(Math.random()*colors.length)]};animation-duration:${1.5+Math.random()*2}s;animation-delay:${Math.random()*0.5}s;top:-20px;border-radius:${Math.random()>0.5?'50%':'2px'};`;
-    cel.appendChild(c);
-  }
-  setTimeout(()=>{ cel.remove(); renderDragonBalls(); },3000);
 }
 
 /* =========================================================
@@ -1989,7 +2178,6 @@ function switchTab(tab){
   document.querySelectorAll('.nav-tab').forEach(btn=>{ btn.classList.toggle('active',btn.dataset.tab===tab); });
   document.getElementById('tab-content').classList.remove('lego-mode');
   if(tab==='itinerary') renderItinerary();
-  else if(tab==='dragonballs') renderDragonBalls();
   else if(tab==='packing') renderPacking();
   else if(tab==='shopping') renderShopping();
   else if(tab==='expense') renderExpense();
