@@ -6,7 +6,10 @@
 <title>🐉 名古屋金澤親子冒險之旅 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<!-- 霞鶩文楷 TC：手寫楷體，親子漫畫感 -->
+<link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC&display=swap" rel="stylesheet">
+<!-- Noto Sans TC：乾淨黑體，內文備援 -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════════════════
    DESIGN SYSTEM — 旅遊手帳 × 龍珠金氣 × 輕毛玻璃
@@ -50,9 +53,9 @@
   --shadow-lg:  0 8px 32px rgba(0,0,0,0.09);
   --shadow-gold-hover: 0 8px 28px rgba(201,147,58,0.20), 0 2px 8px rgba(0,0,0,0.07);
 
-  /* Typography — matches banner's rounded bold manga style */
-  --font-title:  'Nunito', 'Noto Sans TC', -apple-system, 'PingFang TC', sans-serif;
-  --font-body:   'Noto Sans TC', -apple-system, 'PingFang TC', sans-serif;
+  /* Typography — 霞鶩文楷：手寫楷體親子漫畫感 */
+  --font-title:  'LXGW WenKai TC', 'Noto Sans TC', 'PingFang TC', -apple-system, sans-serif;
+  --font-body:   'LXGW WenKai TC', 'Noto Sans TC', 'PingFang TC', -apple-system, sans-serif;
 
   /* Body text high-contrast for outdoor reading */
   --ink:         #222222;
@@ -163,8 +166,8 @@ body {
 /* H1 / Page title */
 .hero-title {
   font-family: var(--font-title);
-  font-size: 23px; font-weight: 900; line-height: 1.35; color: var(--ink);
-  letter-spacing: 0.5px;
+  font-size: 24px; font-weight: 700; line-height: 1.4; color: var(--ink);
+  letter-spacing: 1.5px;
 }
 .hero-title span { color: var(--red); }
 
@@ -181,25 +184,25 @@ body {
 .dlabel,
 .rgroup-title {
   font-family: var(--font-title);
-  font-weight: 900;
-  letter-spacing: 0.4px;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
-.card-title        { font-size: 15px; margin-bottom: 10px; display: flex; align-items: center; gap: 7px; }
-.rcard-name        { font-size: 14px; margin-bottom: 6px; line-height: 1.45; }
-.route-name        { font-size: 14px; margin-bottom: 5px; }
-.activity-title    { font-size: 15px; line-height: 1.4; margin-bottom: 4px; }
-.hotel-name        { font-size: 14px; margin-bottom: 2px; }
+.card-title        { font-size: 15.5px; margin-bottom: 10px; display: flex; align-items: center; gap: 7px; }
+.rcard-name        { font-size: 14.5px; margin-bottom: 6px; line-height: 1.5; }
+.route-name        { font-size: 14.5px; margin-bottom: 5px; }
+.activity-title    { font-size: 15.5px; line-height: 1.5; margin-bottom: 4px; }
+.hotel-name        { font-size: 14.5px; margin-bottom: 2px; }
 .team-name         { font-size: 18px; margin: 5px 0 4px; }
-.day-mission-title { font-size: 16px; line-height: 1.3; }
+.day-mission-title { font-size: 16.5px; line-height: 1.4; }
 .dragonball-title  { font-size: 17px; color: var(--ink); }
 .dragon-wish-title { font-size: 18px; color: #92660A; }
-.dlabel            { font-size: 14px; }
-.rgroup-title      { font-size: 14px; margin: 14px 0 6px; }
+.dlabel            { font-size: 14.5px; }
+.rgroup-title      { font-size: 14.5px; margin: 14px 0 6px; }
 
-/* Day pill date number — extra fat */
+/* Day pill date number */
 .day-pill .dp-date, .date-pill .dp-date {
-  font-family: var(--font-title); font-size: 18px; font-weight: 900; line-height: 1.2;
-  letter-spacing: 0.3px;
+  font-family: var(--font-title); font-size: 18px; font-weight: 700; line-height: 1.2;
+  letter-spacing: 0.5px;
 }
 
 /* Body / description text — deep ink, generous line-height for outdoor reading */
@@ -212,13 +215,14 @@ body {
 .pack-text,
 .shop-text {
   font-family: var(--font-body);
-  font-weight: 500;
-  line-height: 1.75;
+  font-weight: 400;
+  line-height: 1.85;
   color: #333333;
+  letter-spacing: 0.5px;
 }
 .activity-desc  { font-size: 13px; color: #333333; }
 .rcard-desc     { font-size: 12.5px; color: #444444; }
-.weather-tip    { font-size: 12px; color: #333333; }
+.weather-tip    { font-size: 12.5px; color: #333333; }
 .sos-note       { font-size: 11px; color: var(--ink-soft); margin-top: 4px; line-height: 1.6; font-weight: 400; }
 .pack-text      { font-size: 13px; font-weight: 500; }
 .shop-text      { font-size: 13px; font-weight: 500; }
