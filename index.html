@@ -2017,6 +2017,75 @@ function triggerOrbBurst(dayId){
   setTimeout(()=>{ overlay.innerHTML=''; }, 700);
 }
 
+let _packDragKey=null, _packDragCi=null, _shopDragId=null, _shopDragCat=null;
+
+function startPackDrag(evt, key, ci){
+  _packDragKey=key; _packDragCi=ci;
+  evt.dataTransfer.effectAllowed='move';
+  const row = evt.target.closest('.pack-item');
+  if(row){ row.classList.add('dragging');
+    setTimeout(()=>{ document.querySelectorAll('.pack-item.dragging').forEach(el=>{
+      el.addEventListener('dragend',function h(){ el.classList.remove('dragging'); savePackOrder(ci); el.removeEventListener('dragend',h); });
+    }); },0);
+  }
+  // set drag target listeners
+  setTimeout(()=>{
+    document.querySelectorAll(`[data-ci="${ci}"].pack-item`).forEach(target=>{
+      target.ondragover = e=>{ e.preventDefault(); target.classList.add('drag-over'); };
+      target.ondragleave= ()=>target.classList.remove('drag-over');
+      target.ondrop     = e=>{
+        e.preventDefault(); target.classList.remove('drag-over');
+        const src = document.querySelector(`.pack-item[data-key="${_packDragKey}"]`);
+        if(!src||src===target) return;
+        const list = target.parentElement;
+        const rect = target.getBoundingClientRect();
+        if((e.clientY-rect.top)<rect.height/2) list.insertBefore(src,target);
+        else list.insertBefore(src,target.nextSibling);
+      };
+    });
+  },0);
+}
+function savePackOrder(ci){
+  const list = document.getElementById('pack-list-'+ci);
+  if(!list) return;
+  const order = Array.from(list.querySelectorAll('[data-key]')).map(el=>el.dataset.key);
+  let packOrder = loadFromStorage('jp2026_pack_order',{});
+  packOrder[ci] = order; saveToStorage('jp2026_pack_order', packOrder);
+}
+
+function startShopDrag(evt, id, catId){
+  _shopDragId=id; _shopDragCat=catId;
+  evt.dataTransfer.effectAllowed='move';
+  const row = evt.target.closest('.shop-item');
+  if(row){ row.classList.add('dragging');
+    setTimeout(()=>{ document.querySelectorAll('.shop-item.dragging').forEach(el=>{
+      el.addEventListener('dragend',function h(){ el.classList.remove('dragging'); saveShopOrder(catId); el.removeEventListener('dragend',h); });
+    }); },0);
+  }
+  setTimeout(()=>{
+    document.querySelectorAll(`[data-catid="${catId}"].shop-item`).forEach(target=>{
+      target.ondragover = e=>{ e.preventDefault(); target.classList.add('drag-over'); };
+      target.ondragleave= ()=>target.classList.remove('drag-over');
+      target.ondrop     = e=>{
+        e.preventDefault(); target.classList.remove('drag-over');
+        const src = document.querySelector(`.shop-item[data-id="${_shopDragId}"]`);
+        if(!src||src===target) return;
+        const list = target.parentElement;
+        const rect = target.getBoundingClientRect();
+        if((e.clientY-rect.top)<rect.height/2) list.insertBefore(src,target);
+        else list.insertBefore(src,target.nextSibling);
+      };
+    });
+  },0);
+}
+function saveShopOrder(catId){
+  const list = document.getElementById('shop-list-'+catId);
+  if(!list) return;
+  const order = Array.from(list.querySelectorAll('[data-id]')).map(el=>el.dataset.id);
+  let shopOrder = loadFromStorage('jp2026_shop_order',{});
+  shopOrder[catId]=order; saveToStorage('jp2026_shop_order',shopOrder);
+}
+
 /* =========================================================
    GENERIC DRAG-TO-REORDER (packing + shopping)
    ========================================================= */
@@ -2396,26 +2465,31 @@ function renderPacking(){
     getPackingCategoryItems(ci,cat).forEach(it=>{
       const isDone    = !!packingChecked[it.key];
       const isEditing = editingPackKey === it.key;
-      html += `<div class="pack-item ${isDone?'done':''}" id="pack-item-${it.key}"
-          draggable="true" data-key="${it.key}" data-ci="${ci}"
+      const safeKey   = it.key.replace(/[^a-zA-Z0-9]/g,'_');
+      html += `<div class="pack-item ${isDone?'done':''}" id="pack-item-${safeKey}"
+          data-key="${it.key}" data-ci="${ci}"
           style="flex-direction:column;align-items:stretch;">
         <div style="display:flex;align-items:center;gap:8px;">
-          <div class="drag-handle-small">⠿<br>⠿</div>
-          <div class="check-circle ${isDone?'checked':''}" onclick="togglePack('${it.key}')">${isDone?'✓':''}</div>
+          <div class="drag-handle-small" draggable="true"
+            ondragstart="startPackDrag(event,'${it.key}','${ci}')"
+            style="cursor:grab;padding:6px 4px;">⠿<br>⠿</div>
+          <div class="check-circle ${isDone?'checked':''}"
+            onclick="togglePack('${it.key}')">${isDone?'✓':''}</div>
           <div class="pack-text" style="flex:1;">${escapeH(it.text)}</div>
           <div class="item-actions">
-            <button class="more-btn" onclick="toggleMorePopover('pk-${it.key}',event)">⋯</button>
-            <div class="more-popover" id="more-pk-${it.key}">
+            <button class="more-btn"
+              onclick="toggleMorePopover('pk_${safeKey}',event)">⋯</button>
+            <div class="more-popover" id="more-pk_${safeKey}">
               <button onclick="openPackEdit('${it.key}')">✏️ 編輯</button>
               <button class="danger" onclick="deletePackItem('${it.key}')">🗑️ 刪除</button>
             </div>
           </div>
         </div>
         ${isEditing ? `<div class="inline-edit-form" onclick="event.stopPropagation()" style="margin-top:8px;">
-          <input type="text" id="edit-pack-${it.key}" value="${escapeH(it.text)}" placeholder="項目名稱">
+          <input type="text" id="edit-pack-${safeKey}" value="${escapeH(it.text)}" placeholder="項目名稱">
           <div class="inline-edit-actions">
             <button class="btn-cancel" onclick="cancelEditPack()">取消</button>
-            <button class="btn-save" onclick="savePackEdit('${it.key}')">儲存</button>
+            <button class="btn-save" onclick="savePackEdit('${it.key}','${safeKey}')">儲存</button>
           </div>
         </div>` : ''}
       </div>`;
@@ -2440,6 +2514,7 @@ function renderPacking(){
 
 function openPackEdit(key){ editingPackKey=(editingPackKey===key)?null:key; renderPacking(); }
 
+function togglePack(key){
   packingChecked[key]=!packingChecked[key];
   saveToStorage('jp2026_packing_v1',packingChecked);
   if(packingChecked[key] && navigator.vibrate){ navigator.vibrate([40,20,20]); }
@@ -2453,8 +2528,11 @@ function openPackEdit(key){ editingPackKey=(editingPackKey===key)?null:key; rend
   renderPacking();
 }
 function cancelEditPack(){ editingPackKey=null; renderPacking(); }
-function savePackEdit(key){
-  const input=document.getElementById('edit-pack-'+key); const text=input.value.trim();
+function savePackEdit(key, safeKey){
+  const inputId = 'edit-pack-' + (safeKey || key.replace(/[^a-zA-Z0-9]/g,'_'));
+  const input = document.getElementById(inputId);
+  if(!input){ editingPackKey=null; renderPacking(); return; }
+  const text = input.value.trim();
   if(!text){ input.style.outline='2px solid var(--accent)'; return; }
   packingItemEdits[key]=text; saveToStorage('jp2026_pack_edits',packingItemEdits);
   const custom=packingCustomItems.find(c=>c.key===key); if(custom) custom.text=text;
@@ -2556,32 +2634,37 @@ function renderShopping(){
     items.forEach(item=>{
       const isDone    = !!shoppingChecked[item.id];
       const isEditing = editingShopId===item.id;
-      html += `<div class="shop-item ${isDone?'done':''}" id="shop-item-${item.id}"
-          draggable="true" data-id="${item.id}" data-catid="${cat.id}"
+      const safeId    = item.id.replace(/[^a-zA-Z0-9]/g,'_');
+      html += `<div class="shop-item ${isDone?'done':''}" id="shop-item-${safeId}"
+          data-id="${item.id}" data-catid="${cat.id}"
           style="flex-direction:column;align-items:stretch;">
         <div style="display:flex;align-items:center;gap:8px;">
-          <div class="drag-handle-small">⠿<br>⠿</div>
-          <div class="check-circle ${isDone?'checked':''}" onclick="toggleShop('${item.id}')" style="flex:0 0 28px;">${isDone?'✓':''}</div>
+          <div class="drag-handle-small" draggable="true"
+            ondragstart="startShopDrag(event,'${item.id}','${cat.id}')"
+            style="cursor:grab;padding:6px 4px;">⠿<br>⠿</div>
+          <div class="check-circle ${isDone?'checked':''}"
+            onclick="event.stopPropagation();toggleShop('${item.id}')" style="flex:0 0 28px;">${isDone?'✓':''}</div>
           <div class="shop-info" style="flex:1;min-width:0;">
             <div class="shop-text">${escapeH(item.text)}</div>
             ${item.note?`<div class="shop-source">📍 ${escapeH(item.note)}</div>`:''}
           </div>
           ${item.budget?`<div class="shop-budget" style="flex:0 0 auto;">${escapeH(item.budget)}</div>`:''}
-          <div class="item-actions">
-            <button class="more-btn" onclick="toggleMorePopover('sh-${item.id}',event)">⋯</button>
-            <div class="more-popover" id="more-sh-${item.id}">
+          <div class="item-actions" ondragstart="event.preventDefault()">
+            <button class="more-btn"
+              onclick="event.stopPropagation();toggleMorePopover('sh_${safeId}',event)">⋯</button>
+            <div class="more-popover" id="more-sh_${safeId}">
               <button onclick="openShopEdit('${item.id}')">✏️ 編輯</button>
               <button class="danger" onclick="deleteShopItem('${item.id}','${cat.id}')">🗑️ 刪除</button>
             </div>
           </div>
         </div>
         ${isEditing ? `<div class="shop-edit-row" onclick="event.stopPropagation()" style="margin-top:8px;">
-          <input id="sedit-text-${item.id}" type="text" placeholder="品項名稱" value="${escapeH(item.text)}" style="flex:2;">
-          <input id="sedit-budget-${item.id}" type="text" placeholder="預算" value="${escapeH(item.budget||'')}" style="flex:1;min-width:80px;">
-          <input id="sedit-note-${item.id}" type="text" placeholder="備註" value="${escapeH(item.note||'')}" style="flex:1;min-width:80px;">
+          <input id="sedit-text-${safeId}" type="text" placeholder="品項名稱" value="${escapeH(item.text)}" style="flex:2;">
+          <input id="sedit-budget-${safeId}" type="text" placeholder="預算" value="${escapeH(item.budget||'')}" style="flex:1;min-width:80px;">
+          <input id="sedit-note-${safeId}" type="text" placeholder="備註" value="${escapeH(item.note||'')}" style="flex:1;min-width:80px;">
           <div style="display:flex;gap:6px;width:100%;">
             <button class="shop-edit-cancel" onclick="openShopEdit(null)" style="flex:1;">取消</button>
-            <button class="shop-edit-save" onclick="saveShopEdit('${item.id}','${cat.id}')" style="flex:2;">儲存</button>
+            <button class="shop-edit-save" onclick="saveShopEdit('${item.id}','${cat.id}','${safeId}')" style="flex:2;">儲存</button>
           </div>
         </div>` : ''}
       </div>`;
@@ -2612,10 +2695,11 @@ function toggleShop(id){
 }
 
 
-function saveShopEdit(id, catId){
-  const text   = (document.getElementById('sedit-text-'+id)?.value||'').trim();
-  const budget = (document.getElementById('sedit-budget-'+id)?.value||'').trim();
-  const note   = (document.getElementById('sedit-note-'+id)?.value||'').trim();
+function saveShopEdit(id, catId, safeId){
+  const sid = safeId || id.replace(/[^a-zA-Z0-9]/g,'_');
+  const text   = (document.getElementById('sedit-text-'+sid)?.value||'').trim();
+  const budget = (document.getElementById('sedit-budget-'+sid)?.value||'').trim();
+  const note   = (document.getElementById('sedit-note-'+sid)?.value||'').trim();
   if(!text) return;
 
   // Try custom items first
