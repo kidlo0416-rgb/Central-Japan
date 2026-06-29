@@ -123,15 +123,17 @@ body {
   border: 1px solid rgba(255,255,255,0.75);
   border-radius: var(--r-lg);
   box-shadow: var(--shadow-sm);
-  position: relative; overflow: hidden;
+  position: relative; overflow: visible;
   transition: transform 0.22s ease, box-shadow 0.22s ease;
 }
-/* Shimmer — only on hover, subtle */
+/* Shimmer only clips within a pseudo — keep on ::before */
 .glass-card::before {
   content: '';
   position: absolute; top: 0; left: -80%; width: 55%; height: 100%;
   background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.38) 50%, transparent 70%);
   transition: left 0.55s ease; pointer-events: none; z-index: 1;
+  border-radius: inherit;
+  overflow: hidden;
 }
 .glass-card:hover::before { left: 140%; }
 .glass-card:hover {
@@ -777,7 +779,7 @@ body {
   background: var(--surface); border-radius: var(--r-md);
   padding: 11px 12px; margin-bottom: 6px;
   border: 1px solid rgba(255,255,255,0.78); box-shadow: var(--shadow-xs);
-  transition: all 0.2s; position: relative; overflow: hidden;
+  transition: all 0.2s; position: relative; overflow: visible;
 }
 .pack-item.done { opacity: 0.7; }
 .pack-item.done .pack-text { opacity: 0.4; text-decoration: line-through; }
@@ -863,7 +865,7 @@ body {
   background: var(--surface); border-radius: var(--r-md);
   padding: 11px 12px; margin-bottom: 6px;
   border: 1px solid rgba(255,255,255,0.78); box-shadow: var(--shadow-xs);
-  transition: all 0.32s ease; overflow: hidden;
+  transition: all 0.32s ease; overflow: visible;
 }
 .shop-item.sliding-out { transform: translateX(120%) scale(0.8); opacity: 0; max-height: 0; padding: 0; margin: 0; }
 .shop-info { flex: 1; min-width: 0; }
@@ -1574,17 +1576,72 @@ const tripDays = [
   },
   {
     id:'day3', label:'Day 3 8/22', date:'8/22 (六)', isoDate:'2026-08-22',
-    title:'合掌村與高山秘境任務',
-    weather:{city:'高山', lat:36.1408, lon:137.2526, temp:'27°C', tempLow:'21°C', rain:'30%', tip:'山區午後容易飄雨，行李寄物前先把雨具拿出來放隨身包喔！'},
+    title:'KKDAY 一日遊：五箇山 × 白川鄉 × 飛驒高山',
+    weather:{city:'高山', lat:36.1408, lon:137.2526, temp:'27°C', tempLow:'21°C', rain:'30%', tip:'山路蜿蜒、車程較長，上車前務必帶孩子先上廁所。山區午後偶有陣雨，雨具放隨身包！'},
     activities:[
-      {sortId:'d3-1', time:'08:30', title:'🚌 濃飛高速巴士自由行出發', desc:'於金澤站東口搭乘濃飛高速巴士前往合掌村。行李可寄存大型置物櫃。', nav:'金沢駅東口バスターミナル', tags:[{type:'reserve', text:'濃飛巴士車票'}]},
-      {sortId:'d3-2', time:'10:30', title:'五箇山 ➔ 白川鄉合掌村', desc:'抵達世界文化遺產白川鄉。中午在村內尋找傳統定食小店，享用山菜與蕎麥麵。', budget:'午餐預算 3,000 JPY', nav:'白川郷',
-        photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Wada%20House%20(Shirakawa%20Village%2C%20Gifu%20Prefecture)%2002.jpg?width=640', photoCredit:'Wikimedia Commons',
-        tags:[{type:'eat', text:'山菜蕎麥麵'}], detail:'白川鄉於 1995 年登錄 UNESCO 世界文化遺產，現存約 59 棟茅葺屋頂建築，已歷經超過 250 年風雪。'},
-      {sortId:'d3-3', time:'14:30', title:'飛驒高山老街散策', desc:'前往高山放行李，必吃飛驒牛握壽司（用蝦餅當盤子）與現烤五平餅。', budget:'巴士費 6,500 JPY，點心 2,500 JPY', nav:'飛騨高山 古い町並み',
-        photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Sanmachi%20Takayama06ds3872.jpg?width=640', photoCredit:'Wikimedia Commons',
-        tags:[{type:'eat', text:'飛驒牛握壽司'},{type:'eat', text:'現烤五平餅'}]},
-      {sortId:'d3-4', time:'18:30', title:'味之与平 享用頂級 A5 飛驒牛', desc:'預約當地人認證私房老舖，邊欣賞日式庭園，邊享用入口即化的頂級 A5 飛驒牛壽喜燒！', phrase:{jp:'飛騨牛すき焼きセットをお願いします。', zh:'請給我飛驒牛壽喜燒套餐。'}, budget:'預算 12,000 JPY', nav:'味の与平', tags:[{type:'order', text:'飛驒牛壽喜燒套餐'},{type:'reserve', text:'晚餐已預約'}]}
+      {
+        sortId:'d3-0', time:'09:00 ~ 09:10',
+        title:'🚌 集合出發：金澤站東口 4 號乘車處',
+        desc:'提早 10 分鐘抵達 4 號月台，核對名單後上車。上車時請告知導遊「今天最後一站飛驒高山就地解散，不隨車返回金澤」，導遊會在行駛途中送來離團同意書請您簽名，高山下車後即可自由行動。',
+        detail:'💡 防呆提醒：山路蜿蜒且車程長，請事先帶孩子上廁所。車內冷氣強，薄外套與水壺隨身攜帶。簽完離團同意書後完全不需要再處理任何手續，非常方便。',
+        nav:'金沢駅東口バスターミナル',
+        tags:[{type:'reserve', text:'KKDAY 一日遊已預約'}]
+      },
+      {
+        sortId:'d3-1', time:'10:20 ~ 11:00',
+        title:'🟢 第一站｜五箇山合掌集落＋村上家民謠表演',
+        desc:'五箇山與白川鄉同列世界文化遺產。60 度陡峭茅草屋頂是為了抵禦冬季極重積雪，江戶時代曾是加賀藩的秘密火藥製造基地。進入 350 年歷史的「村上家」欣賞民謠，表演者使用由 108 片木片串成的傳統樂器「築子（ささら）」，撞擊聲震撼人心！',
+        budget:'⏱ 停留約 40 分鐘｜🧊 室內天然涼爽，絕佳避暑點',
+        nav:'五箇山合掌の里',
+        photo:'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Gokayama02s3200.jpg/640px-Gokayama02s3200.jpg',
+        photoCredit:'Wikimedia Commons',
+        tags:[{type:'eat', text:'五箇山豆腐（可用繩子綁的起司感豆腐）'}],
+        detail:'📸 必拍：表演結束後引導孩子近距離觀察或與「築子」樂器合照，拍下驚奇表情。\n❄️ 避暑密技：合掌造厚實木材與茅草天然調節，走進室內體感溫度立降，是中午前最佳避暑點。\n😋 必吃：五箇山豆腐，用純淨山泉水製作，密度極高可用繩子提，口感綿密像起司，冰涼消暑。'
+      },
+      {
+        sortId:'d3-2', time:'11:40 ~ 13:40',
+        title:'🟢 第二站｜世界遺產白川鄉合掌村',
+        desc:'全日本規模最大的合掌造聚落，建築完全不用釘子，全靠卡榫繩索搭建。路邊清澈渠道引流山泉水，裡面養著巨大彩色錦鯉。本日策略：不去名店排隊、不上展望台，改走免排隊美食＋大房子室內避暑路線！',
+        budget:'⏱ 停留 120 分鐘｜神田家/和田家門票約 300–500 JPY',
+        nav:'白川郷',
+        photo:'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Shirakawa-go_Gassho-zukuri_Village.jpg/640px-Shirakawa-go_Gassho-zukuri_Village.jpg',
+        photoCredit:'Wikimedia Commons',
+        tags:[{type:'eat', text:'五平餅（炭火現烤米年糕）'},{type:'eat', text:'飛驒牛可樂餅'},{type:'eat', text:'飛驒牛肉包'}],
+        detail:'120 分鐘完美動線（防中暑關鍵）：\n① 前 30 分鐘：下車後直接在點心攤掃貨——五平餅（炭火米年糕塗味噌）、飛驒牛可樂餅（外酥內嫩小學生 100% 接受）、飛驒牛肉包。\n② 後 90 分鐘：購票進入「神田家」或「和田家」，帶孩子爬到頂層（3–4 樓），在榻榻米上吹著山風俯瞰全村，一邊把剛買的點心吃光，完全不用去餐廳人擠人。\n📸 必拍：讓孩子蹲在清澈水道旁，側面捕捉孩子與大錦鯉互動，背景帶到合掌屋。'
+      },
+      {
+        sortId:'d3-3', time:'14:50 ~ 16:40',
+        title:'🟢 第三站｜飛驒高山上三之町老街散策',
+        desc:'「飛驒的小京都」！江戶時代富商的黑色木造建築群。外牆漆黑是因幕府禁止華麗建築，富商低調用柿漆煙燻塗黑，但內部卻極為奢華。街道兩側手工藝品店與仙貝店皆有冷氣，隨時可入內避暑！',
+        budget:'⏱ 停留 110 分鐘｜點心費約 2,000–3,000 JPY',
+        nav:'飛騨高山 古い町並み',
+        photo:'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Sanmachi_Takayama06ds3872.jpg/640px-Sanmachi_Takayama06ds3872.jpg',
+        photoCredit:'Wikimedia Commons',
+        tags:[{type:'eat', text:'飛驒牛握壽司｜こって牛（蝦餅當盤子）'},{type:'eat', text:'飛驒牛奶（玻璃瓶冰鎮）'},{type:'buy', text:'飛驒娃娃 Sarubobo 除魔幸運物'}],
+        detail:'😋 千萬別錯過：\n① 飛驒牛握壽司（こって牛）：炙燒頂級飛驒牛放在香脆蝦餅仙貝上，吃完壽司連盤子一起吃掉，小男孩覺得超神奇！\n② 飛驒牛奶：雜貨店玻璃瓶裝，乳脂肪濃厚，冰鎮後極其過癮。\n📸 必拍：步行 2 分鐘到宮川「中橋（紅橋）」，全家站橋中央，背景翠綠樹木與溪流，色彩強烈的日系大片。\n❄️ 避暑密技：體力下滑就找喫茶店，點一份季節限定「宇治金時抹茶挫冰」迅速降溫。'
+      }
+    ]
+  },
+  {
+    id:'day3b', label:'Day 3 晚上', date:'8/22 晚', isoDate:'2026-08-22',
+    title:'高山入住＋晚餐',
+    weather:{city:'高山', lat:36.1408, lon:137.2526, temp:'25°C', tempLow:'20°C', rain:'20%', tip:'傍晚山區轉涼，記得備件薄外套！'},
+    activities:[
+      {
+        sortId:'d3e-1', time:'17:00',
+        title:'🏨 飛驒高山 Check-in',
+        desc:'就地解散後直接前往今晚飯店 Check-in，放行李、沖澡補電。',
+        nav:'飛騨高山 ホテル'
+      },
+      {
+        sortId:'d3e-2', time:'18:30',
+        title:'🥩 味之与平｜頂級 A5 飛驒牛壽喜燒',
+        desc:'預約當地人認證私房老舖，邊欣賞日式庭園邊享用入口即化的頂級 A5 飛驒牛壽喜燒！',
+        budget:'預算 12,000 JPY',
+        nav:'味の与平',
+        phrase:{jp:'飛騨牛すき焼きセットをお願いします。', zh:'請給我飛驒牛壽喜燒套餐。'},
+        tags:[{type:'order', text:'飛驒牛壽喜燒套餐'},{type:'reserve', text:'晚餐已預約'}]
+      }
     ]
   },
   {
@@ -1667,10 +1724,10 @@ let dailyExpenses = {
   day6:[{id:'e6-1',name:'地鐵東山線',cat:'交通',amount:530,payer:'自己'},{id:'e6-2',name:'科學館門票',cat:'門票/娛樂',amount:1600,payer:'朋友'},{id:'e6-3',name:'鰻魚飯三吃午餐',cat:'餐飲',amount:11000,payer:'自己'},{id:'e6-4',name:'磁浮鐵道館交通+門票',cat:'交通',amount:4660,payer:'朋友'},{id:'e6-5',name:'新幹線便當',cat:'餐飲',amount:3500,payer:'自己'},{id:'e6-6',name:'MaxValu 宵夜',cat:'雜支/採購',amount:2500,payer:'朋友'}],
   day7:[{id:'e7-1',name:'名鐵特急 μ-SKY',cat:'交通',amount:3580,payer:'自己'},{id:'e7-2',name:'置物櫃寄存',cat:'交通',amount:1000,payer:'自己'},{id:'e7-3',name:'まるは食堂午餐',cat:'餐飲',amount:5500,payer:'朋友'},{id:'e7-4',name:'常滑電車往返',cat:'交通',amount:960,payer:'自己'}]
 };
-const dayLabels = {day1:'DAY1 8/20',day2:'DAY2 8/21',day3:'DAY3 8/22',day4:'DAY4 8/23',day5:'DAY5 8/24',day6:'DAY6 8/25',day7:'DAY7 8/26'};
+const dayLabels = {day1:'DAY1 8/20',day2:'DAY2 8/21',day3:'DAY3 8/22',day3b:'DAY3 8/22 晚',day4:'DAY4 8/23',day5:'DAY5 8/24',day6:'DAY6 8/25',day7:'DAY7 8/26'};
 const dayDateInfo = {
   day1:{weekday:'Thu',date:'20',month:'08月'},day2:{weekday:'Fri',date:'21',month:'08月'},
-  day3:{weekday:'Sat',date:'22',month:'08月'},day4:{weekday:'Sun',date:'23',month:'08月'},
+  day3:{weekday:'Sat',date:'22',month:'08月'},day3b:{weekday:'Sat',date:'22🌙',month:'08月'},day4:{weekday:'Sun',date:'23',month:'08月'},
   day5:{weekday:'Mon',date:'24',month:'08月'},day6:{weekday:'Tue',date:'25',month:'08月'},
   day7:{weekday:'Wed',date:'26',month:'08月'}
 };
