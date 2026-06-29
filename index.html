@@ -6,7 +6,7 @@
 <title>🐉 名古屋金澤親子冒險之旅 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=cwTeXKai&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Noto+Sans+TC:wght@500;700;900&display=swap" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════════════════
    DESIGN SYSTEM — 旅遊手帳 × 龍珠金氣 × 輕毛玻璃
@@ -50,9 +50,12 @@
   --shadow-lg:  0 8px 32px rgba(0,0,0,0.09);
   --shadow-gold-hover: 0 8px 28px rgba(201,147,58,0.20), 0 2px 8px rgba(0,0,0,0.07);
 
-  /* Typography — cwTeXKai：Google Fonts 繁體中文楷體，手寫童趣感 */
-  --font-title: 'cwTeXKai', 'BiauKai', '標楷體', Georgia, serif;
-  --font-body:  'cwTeXKai', 'BiauKai', '標楷體', Georgia, serif;
+  /* Typography
+     Fredoka One  : 圓潤卡通英文數字（像 banner 標題感）
+     Noto Sans TC : 繁體中文清晰圓體，手機渲染穩定
+     兩者疊加：英文數字用 Fredoka One，中文自動 fallback 到 Noto Sans TC */
+  --font-title: 'Fredoka One', 'Noto Sans TC', 'PingFang TC', -apple-system, sans-serif;
+  --font-body:  'Fredoka One', 'Noto Sans TC', 'PingFang TC', -apple-system, sans-serif;
 
   /* Body text high-contrast for outdoor reading */
   --ink:         #222222;
@@ -163,8 +166,8 @@ body {
 /* H1 / Page title */
 .hero-title {
   font-family: var(--font-title);
-  font-size: 24px; font-weight: 700; line-height: 1.4; color: var(--ink);
-  letter-spacing: 1.5px;
+  font-size: 24px; font-weight: 900; line-height: 1.4; color: var(--ink);
+  letter-spacing: 0.5px;
 }
 .hero-title span { color: var(--red); }
 
@@ -182,24 +185,32 @@ body {
 .rgroup-title {
   font-family: var(--font-title);
   font-weight: 700;
-  letter-spacing: 1px;
+  letter-spacing: 0.3px;
 }
-.card-title        { font-size: 15.5px; margin-bottom: 10px; display: flex; align-items: center; gap: 7px; }
-.rcard-name        { font-size: 14.5px; margin-bottom: 6px; line-height: 1.5; }
-.route-name        { font-size: 14.5px; margin-bottom: 5px; }
-.activity-title    { font-size: 15.5px; line-height: 1.5; margin-bottom: 4px; }
-.hotel-name        { font-size: 14.5px; margin-bottom: 2px; }
+.card-title        { font-size: 15px; margin-bottom: 10px; display: flex; align-items: center; gap: 7px; }
+.rcard-name        { font-size: 14px; margin-bottom: 6px; line-height: 1.5; }
+.route-name        { font-size: 14px; margin-bottom: 5px; }
+.activity-title    { font-size: 15px; line-height: 1.5; margin-bottom: 4px; }
+.hotel-name        { font-size: 14px; margin-bottom: 2px; }
 .team-name         { font-size: 18px; margin: 5px 0 4px; }
-.day-mission-title { font-size: 16.5px; line-height: 1.4; }
+.day-mission-title { font-size: 16px; line-height: 1.35; }
 .dragonball-title  { font-size: 17px; color: var(--ink); }
 .dragon-wish-title { font-size: 18px; color: #92660A; }
-.dlabel            { font-size: 14.5px; }
-.rgroup-title      { font-size: 14.5px; margin: 14px 0 6px; }
+.dlabel            { font-size: 14px; }
+.rgroup-title      { font-size: 14px; margin: 14px 0 6px; }
 
-/* Day pill date number */
+/* Day pill — Fredoka One makes numbers extra round and fun */
 .day-pill .dp-date, .date-pill .dp-date {
-  font-family: var(--font-title); font-size: 18px; font-weight: 700; line-height: 1.2;
-  letter-spacing: 0.5px;
+  font-family: 'Fredoka One', 'Noto Sans TC', sans-serif;
+  font-size: 20px; font-weight: 400; line-height: 1.2; letter-spacing: 0px;
+}
+.day-pill .dp-weekday, .date-pill .dp-weekday {
+  font-family: 'Fredoka One', sans-serif;
+  font-size: 10px; font-weight: 400; letter-spacing: 0.5px; opacity: 0.7;
+}
+.day-pill .dp-month, .date-pill .dp-month {
+  font-family: 'Fredoka One', 'Noto Sans TC', sans-serif;
+  font-size: 9.5px; font-weight: 400; opacity: 0.65;
 }
 
 /* Body / description text — deep ink, generous line-height for outdoor reading */
@@ -212,10 +223,10 @@ body {
 .pack-text,
 .shop-text {
   font-family: var(--font-body);
-  font-weight: 400;
-  line-height: 1.85;
+  font-weight: 500;
+  line-height: 1.8;
   color: #333333;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.2px;
 }
 .activity-desc  { font-size: 13px; color: #333333; }
 .rcard-desc     { font-size: 12.5px; color: #444444; }
@@ -403,7 +414,8 @@ body {
 .weather-mid { flex: 1; min-width: 0; }
 .weather-stats-row { display: flex; align-items: baseline; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
 .weather-temp-big {
-  font-family: var(--font-title); font-size: 26px; font-weight: 800; color: var(--red);
+  font-family: 'Fredoka One', 'Noto Sans TC', sans-serif;
+  font-size: 30px; font-weight: 400; color: var(--red);
 }
 .weather-rain-chip {
   font-family: var(--font-body); font-size: 12px; font-weight: 500; color: var(--blue);
@@ -784,9 +796,68 @@ body {
   100% { opacity: 0; transform: translateY(-80%) scale(0.9); }
 }
 
-/* ════════════════════════════════
-   SHOPPING
-   ════════════════════════════════ */
+/* ── Shopping categories ── */
+.shop-cat-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 10px;
+}
+.shop-cat-title {
+  font-family: var(--font-title); font-size: 15px; font-weight: 700;
+  color: var(--ink); display: flex; align-items: center; gap: 7px;
+}
+.shop-cat-count {
+  font-family: 'Fredoka One', var(--font-body); font-size: 12px; font-weight: 400;
+  color: #fff; background: var(--red);
+  padding: 2px 10px; border-radius: 999px;
+  box-shadow: 0 2px 6px var(--red-glow);
+}
+.shop-cat-count.done-all {
+  background: var(--gold); box-shadow: 0 2px 6px var(--gold-glow);
+}
+.shop-cat-block {
+  margin-bottom: 8px; padding: 14px 14px 10px !important;
+  border-left: 3.5px solid var(--red) !important;
+}
+
+/* Inline edit row for shopping items */
+.shop-edit-row {
+  display: flex; gap: 6px; margin-top: 8px; padding-top: 8px;
+  border-top: 1px dashed var(--ink-faint); flex-wrap: wrap;
+}
+.shop-edit-row input {
+  flex: 1; min-width: 120px; border: 1px solid var(--ink-faint);
+  border-radius: var(--r-sm); padding: 8px 10px; font-size: 12.5px;
+  font-family: var(--font-body); background: rgba(255,255,255,0.9); color: var(--ink);
+}
+.shop-edit-row input:focus { outline: 2px solid var(--gold); }
+.shop-edit-save {
+  background: var(--red); color: #fff; border: none; border-radius: var(--r-sm);
+  padding: 8px 14px; font-weight: 700; font-size: 12px; cursor: pointer;
+  font-family: var(--font-title);
+}
+.shop-edit-cancel {
+  background: var(--ink-ghost); color: var(--ink-soft); border: none;
+  border-radius: var(--r-sm); padding: 8px 12px; font-weight: 500;
+  font-size: 12px; cursor: pointer; font-family: var(--font-body);
+}
+
+/* Category add-row */
+.shop-cat-add-row {
+  display: flex; gap: 6px; margin-top: 10px; padding-top: 10px;
+  border-top: 1px dashed var(--ink-faint);
+}
+.shop-cat-add-row input {
+  flex: 1; border: 1.5px dashed var(--ink-faint); border-radius: var(--r-sm);
+  padding: 9px 11px; font-size: 12.5px; font-family: var(--font-body);
+  background: rgba(255,255,255,0.7); color: var(--ink);
+}
+.shop-cat-add-row input:focus { outline: none; border-color: var(--gold); background: rgba(255,255,255,0.95); }
+.shop-cat-add-btn {
+  background: var(--gold); color: #fff; border: none; border-radius: var(--r-sm);
+  padding: 9px 16px; font-weight: 700; font-size: 14px; cursor: pointer;
+  font-family: 'Fredoka One', var(--font-title); white-space: nowrap;
+  box-shadow: 0 2px 8px var(--gold-glow);
+}
 .shop-item {
   display: flex; align-items: center; gap: 10px;
   background: var(--surface); border-radius: var(--r-md);
@@ -1016,6 +1087,15 @@ body {
 /* ── Drag ── */
 .activity-card.dragging  { opacity: 0.42; }
 .activity-card.drag-over { box-shadow: 0 0 0 2px var(--gold), var(--shadow-sm); }
+
+/* ── Pack / Shop drag ── */
+.pack-item.dragging, .shop-item.dragging { opacity: 0.4; }
+.pack-item.drag-over, .shop-item.drag-over { box-shadow: 0 0 0 2px var(--gold); border-radius: var(--r-md); }
+.drag-handle-small {
+  flex: 0 0 18px; color: var(--ink-faint); font-size: 12px; cursor: grab;
+  padding: 4px 0; line-height: 0.55; letter-spacing: -2px; touch-action: none;
+  display: flex; flex-direction: column; align-items: center; user-select: none;
+}
 
 /* ════════════════════════════════
    DAY DRAGON BALL WIDGET
@@ -1604,15 +1684,56 @@ const aiPresetTopics = [
 ];
 
 /* ===== CUSTOM SHOPPING ITEMS ===== */
-const defaultShoppingItems = [
-  {id:'s-1',text:'運動用品',budget:'5,000 JPY',source:'行前規劃'},
-  {id:'s-2',text:'藥妝（防曬、護膚）',budget:'3,000 JPY',source:'行前規劃'},
-  {id:'s-3',text:'北陸限定伴手禮',budget:'8,000 JPY',source:'金澤'},
-  {id:'s-4',text:'電器（家電/玩具）',budget:'10,000 JPY',source:'名古屋'},
-  {id:'s-5',text:'文具用品 / 桌遊',budget:'3,000 JPY',source:'大須商店街'},
-  {id:'s-6',text:'蝦仙貝之里',budget:'2,000 JPY',source:'Day7 まるは食堂'},
-  {id:'s-7',text:'飛驒牛肉乾伴手禮',budget:'4,000 JPY',source:'Day3 高山老街'},
-  {id:'s-8',text:'金箔相關商品',budget:'3,000 JPY',source:'Day2 東茶屋街'}
+const shopCategories = [
+  {
+    id:'cat-souvenir', icon:'🎁', name:'伴手禮',
+    items:[
+      {id:'s-3', text:'北陸限定伴手禮（加賀棒茶・金澤銘菓）', budget:'8,000 JPY', note:'金澤'},
+      {id:'s-6', text:'蝦仙貝之里', budget:'2,000 JPY', note:'Day7 まるは食堂'},
+      {id:'s-7', text:'飛驒牛肉乾', budget:'4,000 JPY', note:'Day3 高山老街'},
+      {id:'s-8', text:'金箔相關商品', budget:'3,000 JPY', note:'Day2 東茶屋街'},
+      {id:'s-9', text:'白川鄉限定明信片', budget:'500 JPY', note:'Day3 白川鄉'},
+    ]
+  },
+  {
+    id:'cat-sports', icon:'🏃', name:'運動用品',
+    items:[
+      {id:'s-1', text:'Mont-bell 戶外裝備', budget:'5,000 JPY', note:'Day2 金澤 Rinto'},
+      {id:'s-10', text:'運動鞋 / 涼鞋', budget:'8,000 JPY', note:'名古屋大須'},
+    ]
+  },
+  {
+    id:'cat-stationery', icon:'✏️', name:'文具桌遊',
+    items:[
+      {id:'s-5', text:'文具用品 / 桌遊', budget:'3,000 JPY', note:'大須商店街'},
+      {id:'s-11', text:'日本限定文具（貼紙・紙膠帶）', budget:'2,000 JPY', note:'名古屋 Loft'},
+    ]
+  },
+  {
+    id:'cat-fruit', icon:'🍑', name:'水果食品',
+    items:[
+      {id:'s-12', text:'水蜜桃（8月盛產）', budget:'2,500 JPY', note:'Day1 Marue 超市'},
+      {id:'s-13', text:'晴王葡萄', budget:'2,000 JPY', note:'Day1 Marue 超市'},
+      {id:'s-14', text:'能登鮮奶', budget:'800 JPY', note:'Day1 Marue 超市'},
+      {id:'s-15', text:'名古屋炸雞 / 熟食', budget:'1,500 JPY', note:'Day6 MaxValu'},
+    ]
+  },
+  {
+    id:'cat-pharmacy', icon:'💊', name:'藥妝',
+    items:[
+      {id:'s-2', text:'防曬乳（SPF50+）', budget:'1,500 JPY', note:'藥妝店'},
+      {id:'s-16', text:'護膚保濕系列', budget:'3,000 JPY', note:'松本清 / Welcia'},
+      {id:'s-17', text:'兒童常備藥（退燒貼・腸胃藥）', budget:'2,000 JPY', note:'藥妝店'},
+      {id:'s-18', text:'防蚊液', budget:'800 JPY', note:'藥妝店'},
+    ]
+  },
+  {
+    id:'cat-electronics', icon:'⚡', name:'電器玩具',
+    items:[
+      {id:'s-4', text:'家電 / 玩具', budget:'10,000 JPY', note:'名古屋大須'},
+      {id:'s-19', text:'任天堂 Switch 遊戲片', budget:'4,000 JPY', note:'大須 Super Potato'},
+    ]
+  }
 ];
 
 /* =========================================================
@@ -1648,6 +1769,13 @@ function initStorage(){
   shoppingChecked = loadFromStorage('jp2026_shop_checked',{});
   customShoppingItems = loadFromStorage('jp2026_shop_custom',[]);
   dayBallLit = loadFromStorage('jp2026_dayball_lit',{});
+  // Apply saved shopping item edits to default items
+  const shopEdits = loadFromStorage('jp2026_shop_edits',{});
+  shopCategories.forEach(cat=>{
+    cat.items.forEach(item=>{
+      if(shopEdits[item.id]){ Object.assign(item, shopEdits[item.id]); }
+    });
+  });
   savedOrder = loadFromStorage('jp2026_order_v1',{});
   activityEdits = loadFromStorage('jp2026_act_edits',{});
   activityDeletes = loadFromStorage('jp2026_act_deletes',{});
@@ -1890,6 +2018,133 @@ function triggerOrbBurst(dayId){
 }
 
 /* =========================================================
+   GENERIC DRAG-TO-REORDER (packing + shopping)
+   ========================================================= */
+let _simpleDrag = null;
+
+function attachSimpleDrag(listId, type, scope){
+  const list = document.getElementById(listId);
+  if(!list) return;
+
+  Array.from(list.children).forEach(item=>{
+    if(!item.dataset.key && !item.dataset.id) return;
+
+    item.addEventListener('dragstart', e=>{
+      _simpleDrag = { el: item, listId, type, scope };
+      item.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    });
+    item.addEventListener('dragend', ()=>{
+      item.classList.remove('dragging');
+      list.querySelectorAll('.drag-over').forEach(el=>el.classList.remove('drag-over'));
+      if(_simpleDrag) persistSimpleOrder(listId, type, scope);
+      _simpleDrag = null;
+    });
+    item.addEventListener('dragover', e=>{
+      e.preventDefault();
+      item.classList.add('drag-over');
+    });
+    item.addEventListener('dragleave', ()=>item.classList.remove('drag-over'));
+    item.addEventListener('drop', e=>{
+      e.preventDefault();
+      item.classList.remove('drag-over');
+      if(!_simpleDrag || _simpleDrag.el === item) return;
+      const rect = item.getBoundingClientRect();
+      const before = (e.clientY - rect.top) < rect.height / 2;
+      if(before) list.insertBefore(_simpleDrag.el, item);
+      else        list.insertBefore(_simpleDrag.el, item.nextSibling);
+    });
+
+    // Touch drag support
+    let touchClone = null, touchOffX = 0, touchOffY = 0;
+    item.addEventListener('touchstart', e=>{
+      if(e.target.closest('.check-circle,.more-btn,.more-popover,.inline-edit-form,.shop-edit-row')) return;
+      const t = e.touches[0];
+      const rect = item.getBoundingClientRect();
+      touchOffX = t.clientX - rect.left;
+      touchOffY = t.clientY - rect.top;
+      touchClone = item.cloneNode(true);
+      touchClone.style.cssText = `position:fixed;left:${rect.left}px;top:${rect.top}px;width:${rect.width}px;opacity:0.85;z-index:9999;pointer-events:none;box-shadow:0 8px 24px rgba(0,0,0,0.18);border-radius:var(--r-md);`;
+      document.body.appendChild(touchClone);
+      item.style.opacity = '0.3';
+      _simpleDrag = { el: item, listId, type, scope };
+    },{passive:true});
+
+    item.addEventListener('touchmove', e=>{
+      if(!touchClone) return;
+      e.preventDefault();
+      const t = e.touches[0];
+      touchClone.style.left = (t.clientX - touchOffX) + 'px';
+      touchClone.style.top  = (t.clientY - touchOffY) + 'px';
+      // Find target
+      touchClone.style.display = 'none';
+      const el = document.elementFromPoint(t.clientX, t.clientY);
+      touchClone.style.display = '';
+      const target = el?.closest('[data-key],[data-id]');
+      if(target && target !== item && target.closest('#'+listId)){
+        const rect = target.getBoundingClientRect();
+        if((t.clientY - rect.top) < rect.height/2) list.insertBefore(item, target);
+        else list.insertBefore(item, target.nextSibling);
+      }
+    },{passive:false});
+
+    item.addEventListener('touchend', ()=>{
+      if(touchClone){ touchClone.remove(); touchClone=null; }
+      item.style.opacity = '';
+      if(_simpleDrag) persistSimpleOrder(listId, type, scope);
+      _simpleDrag = null;
+    });
+  });
+}
+
+function persistSimpleOrder(listId, type, scope){
+  const list = document.getElementById(listId);
+  if(!list) return;
+
+  if(type === 'pack'){
+    const ci = parseInt(scope);
+    const cat = packingData[ci];
+    if(!cat) return;
+    const newOrder = Array.from(list.children).map(el=>el.dataset.key).filter(Boolean);
+    // Rebuild cat.items order based on DOM
+    const keyToText = {};
+    getPackingCategoryItems(ci, cat).forEach(it=>{ keyToText[it.key] = it.text; });
+    // Save order to custom sort
+    let packOrder = loadFromStorage('jp2026_pack_order',{});
+    packOrder[ci] = newOrder;
+    saveToStorage('jp2026_pack_order', packOrder);
+    // Apply to custom items
+    packingCustomItems = [
+      ...packingCustomItems.filter(c=>c.cat!==ci),
+      ...newOrder.filter(k=>k.startsWith('custom-pack-')).map((k,i)=>{
+        const existing = packingCustomItems.find(c=>c.key===k);
+        return existing ? {...existing, sortIndex:i} : null;
+      }).filter(Boolean)
+    ];
+    saveToStorage('jp2026_pack_custom', packingCustomItems);
+  }
+
+  if(type === 'shop'){
+    const catId = scope;
+    const newOrder = Array.from(list.children).map(el=>el.dataset.id).filter(Boolean);
+    let shopOrder = loadFromStorage('jp2026_shop_order',{});
+    shopOrder[catId] = newOrder;
+    saveToStorage('jp2026_shop_order', shopOrder);
+    // Reorder customShoppingItems within this category
+    const inCat = customShoppingItems.filter(c=>c.catId===catId||shopCategories.find(s=>s.id===catId)?.items.some(i=>i.id===c.id));
+    // Reorder by new order for custom items
+    const customInCat = customShoppingItems.filter(c=>{
+      const cat = shopCategories.find(s=>s.id===catId);
+      return cat && !cat.items.some(i=>i.id===c.id);
+    });
+    const reordered = newOrder.map(id=>customShoppingItems.find(c=>c.id===id)).filter(Boolean);
+    const others = customShoppingItems.filter(c=>!reordered.includes(c));
+    customShoppingItems = [...others, ...reordered];
+    saveToStorage('jp2026_shop_custom', customShoppingItems);
+  }
+}
+
+/* =========================================================
    RENDER: ITINERARY
    ========================================================= */
 function renderItinerary(){
@@ -2123,46 +2378,68 @@ function getPackingCategoryItems(ci,cat){
   return items;
 }
 function renderPacking(){
-  let total=0,done=0;
+  let total=0, done=0;
   packingData.forEach((cat,ci)=>{ getPackingCategoryItems(ci,cat).forEach(it=>{ total++; if(packingChecked[it.key]) done++; }); });
-  const pct=total?Math.round(done/total*100):0;
-  let html='<div class="tab-inner">';
-  html+=`<div class="glass-card progress-wrap fade-up">
+  const pct = total ? Math.round(done/total*100) : 0;
+  let html = '<div class="tab-inner">';
+
+  html += `<div class="glass-card progress-wrap fade-up">
     <div class="progress-headline"><div class="big"><span>${pct}%</span> 戰力裝備完成</div><div class="small">${done} / ${total}</div></div>
     <div class="progress-track"><div class="progress-fill" style="width:${pct}%;"></div></div>
   </div>`;
+
   packingData.forEach((cat,ci)=>{
-    html+=`<div class="glass-card fade-up" style="padding:14px;"><div class="pack-cat-title">${cat.icon} ${cat.cat}</div>`;
+    html += `<div class="glass-card fade-up" style="padding:14px;">
+      <div class="pack-cat-title">${cat.icon} ${cat.cat}</div>
+      <div class="pack-drag-list" id="pack-list-${ci}" data-ci="${ci}">`;
+
     getPackingCategoryItems(ci,cat).forEach(it=>{
-      const isDone=!!packingChecked[it.key]; const isEditing=editingPackKey===it.key;
-      html+=`<div class="pack-item ${isDone?'done':''}" id="pack-item-${it.key}" style="flex-direction:column;align-items:stretch;">
-        <div style="display:flex;align-items:center;gap:10px;">
+      const isDone    = !!packingChecked[it.key];
+      const isEditing = editingPackKey === it.key;
+      html += `<div class="pack-item ${isDone?'done':''}" id="pack-item-${it.key}"
+          draggable="true" data-key="${it.key}" data-ci="${ci}"
+          style="flex-direction:column;align-items:stretch;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div class="drag-handle-small">⠿<br>⠿</div>
           <div class="check-circle ${isDone?'checked':''}" onclick="togglePack('${it.key}')">${isDone?'✓':''}</div>
-          <div class="pack-text">${escapeH(it.text)}</div>
+          <div class="pack-text" style="flex:1;">${escapeH(it.text)}</div>
           <div class="item-actions">
-            <button class="more-btn" onclick="toggleMorePopover('pack-${it.key}',event)">⋯</button>
-            <div class="more-popover" id="more-pack-${it.key}">
-              <button onclick="toggleEditPack('${it.key}')">✏️ 編輯</button>
+            <button class="more-btn" onclick="toggleMorePopover('pk-${it.key}',event)">⋯</button>
+            <div class="more-popover" id="more-pk-${it.key}">
+              <button onclick="openPackEdit('${it.key}')">✏️ 編輯</button>
               <button class="danger" onclick="deletePackItem('${it.key}')">🗑️ 刪除</button>
             </div>
           </div>
         </div>
-        ${isEditing?`<div class="inline-edit-form"><input type="text" id="edit-pack-${it.key}" value="${escapeH(it.text)}">
+        ${isEditing ? `<div class="inline-edit-form" onclick="event.stopPropagation()" style="margin-top:8px;">
+          <input type="text" id="edit-pack-${it.key}" value="${escapeH(it.text)}" placeholder="項目名稱">
           <div class="inline-edit-actions">
             <button class="btn-cancel" onclick="cancelEditPack()">取消</button>
             <button class="btn-save" onclick="savePackEdit('${it.key}')">儲存</button>
-          </div></div>`:''}
+          </div>
+        </div>` : ''}
       </div>`;
     });
-    html+=`<div class="shop-add-row" style="margin-top:8px;">
-      <input type="text" id="pack-new-input-${ci}" placeholder="新增 ${cat.cat} 項目..." onkeydown="if(event.key==='Enter')addPackItem(${ci})">
-      <button class="shop-add-btn" onclick="addPackItem(${ci})">＋</button>
-    </div></div>`;
+
+    html += `</div>
+      <div class="shop-cat-add-row" style="margin-top:8px;">
+        <input type="text" id="pack-new-input-${ci}"
+          placeholder="＋ 新增${cat.cat}項目..."
+          onkeydown="if(event.key==='Enter')addPackItem(${ci})">
+        <button class="shop-cat-add-btn" onclick="addPackItem(${ci})">＋</button>
+      </div>
+    </div>`;
   });
-  html+='</div>';
-  document.getElementById('tab-content').innerHTML=html;
+
+  html += '</div>';
+  document.getElementById('tab-content').innerHTML = html;
+
+  // Attach drag handlers to all pack lists
+  packingData.forEach((_,ci)=>{ attachSimpleDrag('pack-list-'+ci, 'pack', ci); });
 }
-function togglePack(key){
+
+function openPackEdit(key){ editingPackKey=(editingPackKey===key)?null:key; renderPacking(); }
+
   packingChecked[key]=!packingChecked[key];
   saveToStorage('jp2026_packing_v1',packingChecked);
   if(packingChecked[key] && navigator.vibrate){ navigator.vibrate([40,20,20]); }
@@ -2175,7 +2452,6 @@ function togglePack(key){
   }
   renderPacking();
 }
-function toggleEditPack(key){ editingPackKey=(editingPackKey===key)?null:key; renderPacking(); }
 function cancelEditPack(){ editingPackKey=null; renderPacking(); }
 function savePackEdit(key){
   const input=document.getElementById('edit-pack-'+key); const text=input.value.trim();
@@ -2199,48 +2475,196 @@ function addPackItem(ci){
 /* =========================================================
    RENDER: SHOPPING
    ========================================================= */
-function getAllShoppingItems(){
-  const items=[...defaultShoppingItems];
-  customShoppingItems.forEach(c=>items.push(c));
-  return items;
+/* =========================================================
+   RENDER: SHOPPING (categorized)
+   ========================================================= */
+let editingShopId = null;   // currently editing item id
+
+function getShopCategoryItems(catId){
+  // Default items for this category
+  const cat = shopCategories.find(c=>c.id===catId);
+  const defaults = cat ? cat.items.filter(i=>!shoppingChecked['del_'+i.id]) : [];
+  // Custom items tagged to this category
+  const customs = customShoppingItems.filter(c=>c.catId===catId);
+  return [...defaults, ...customs];
 }
+
+function shopItemDoneCount(catId){
+  return getShopCategoryItems(catId).filter(i=>!!shoppingChecked[i.id]).length;
+}
+
+function renderShopItem(item, catId){
+  const done = !!shoppingChecked[item.id];
+  const isEditing = editingShopId === item.id;
+  return `<div class="shop-item ${done?'done':''}" id="shop-item-${item.id}">
+    <div class="check-circle ${done?'checked':''}" onclick="toggleShop('${item.id}')" style="flex:0 0 28px;">${done?'✓':''}</div>
+    <div class="shop-info">
+      <div class="shop-text">${escapeH(item.text)}</div>
+      ${item.note?`<div class="shop-source">📍 ${escapeH(item.note)}</div>`:''}
+    </div>
+    ${item.budget?`<div class="shop-budget">${escapeH(item.budget)}</div>`:''}
+    <div style="display:flex;gap:4px;flex:0 0 auto;">
+      <button class="shop-delete" style="font-size:13px;" onclick="toggleEditShop('${item.id}')" title="編輯">✏️</button>
+      <button class="shop-delete" onclick="deleteShopItem('${item.id}','${catId}')">🗑️</button>
+    </div>
+    ${isEditing ? `<div class="shop-edit-row" onclick="event.stopPropagation()">
+      <input id="sedit-text-${item.id}" type="text" placeholder="品項名稱" value="${escapeH(item.text)}">
+      <input id="sedit-budget-${item.id}" type="text" placeholder="預算（選填）" value="${escapeH(item.budget||'')}" style="max-width:110px;">
+      <input id="sedit-note-${item.id}" type="text" placeholder="備註（選填）" value="${escapeH(item.note||'')}" style="max-width:110px;">
+      <button class="shop-edit-cancel" onclick="toggleEditShop(null)">取消</button>
+      <button class="shop-edit-save" onclick="saveShopEdit('${item.id}','${catId}')">儲存</button>
+    </div>` : ''}
+  </div>`;
+}
+
 function renderShopping(){
-  const items=getAllShoppingItems();
-  let html='<div class="tab-inner">';
-  html+=`<div class="glass-card fade-up" style="padding:14px;">
-    <div class="card-title">🛒 購物清單戰力表</div>
-    <div id="shop-items-list">`;
-  items.forEach(item=>{
-    const done=!!shoppingChecked[item.id];
-    html+=`<div class="shop-item ${done?'done':''}" id="shop-item-${item.id}">
-      <div class="check-circle ${done?'checked':''}" onclick="toggleShop('${item.id}')" style="flex:0 0 28px;">${done?'✓':''}</div>
-      <div class="shop-info">
-        <div class="shop-text">${escapeH(item.text)}</div>
-        <div class="shop-source">${escapeH(item.source||'')}</div>
+  const catColors = {
+    'cat-souvenir':'#E8453C','cat-sports':'#3B82F6','cat-stationery':'#A855F7',
+    'cat-fruit':'#22C55E','cat-pharmacy':'#F59E0B','cat-electronics':'#0EA5E9'
+  };
+  const allItems  = shopCategories.flatMap(c=>getShopCategoryItems(c.id));
+  const totalDone = allItems.filter(i=>!!shoppingChecked[i.id]).length;
+  const totalAll  = allItems.length;
+  const pct = totalAll ? Math.round(totalDone/totalAll*100) : 0;
+
+  let html = '<div class="tab-inner">';
+  html += `<div class="glass-card progress-wrap fade-up">
+    <div class="progress-headline">
+      <div class="big">🛒 <span>${pct}%</span> 完成</div>
+      <div class="small">${totalDone} / ${totalAll} 項</div>
+    </div>
+    <div class="progress-track"><div class="progress-fill" style="width:${pct}%;"></div></div>
+  </div>`;
+
+  shopCategories.forEach((cat)=>{
+    const items   = getShopCategoryItems(cat.id);
+    const done    = items.filter(i=>!!shoppingChecked[i.id]).length;
+    const allDone = done===items.length && items.length>0;
+    const color   = catColors[cat.id]||'var(--red)';
+
+    html += `<div class="glass-card shop-cat-block fade-up" style="padding:14px;border-left:3.5px solid ${color};">
+      <div class="shop-cat-header">
+        <div class="shop-cat-title" style="color:${color};">${cat.icon} ${cat.name}</div>
+        <div class="shop-cat-count" style="background:${allDone?'var(--gold)':color};">${done}/${items.length}</div>
       </div>
-      ${item.budget?`<div class="shop-budget">${escapeH(item.budget)}</div>`:''}
-      <button class="shop-delete" onclick="deleteShopItem('${item.id}')">🗑️</button>
+      <div class="shop-drag-list" id="shop-list-${cat.id}" data-catid="${cat.id}">`;
+
+    if(items.length===0){
+      html += `<div style="font-size:12px;color:var(--ink-soft);padding:6px 2px;">尚未加入任何品項</div>`;
+    }
+
+    items.forEach(item=>{
+      const isDone    = !!shoppingChecked[item.id];
+      const isEditing = editingShopId===item.id;
+      html += `<div class="shop-item ${isDone?'done':''}" id="shop-item-${item.id}"
+          draggable="true" data-id="${item.id}" data-catid="${cat.id}"
+          style="flex-direction:column;align-items:stretch;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div class="drag-handle-small">⠿<br>⠿</div>
+          <div class="check-circle ${isDone?'checked':''}" onclick="toggleShop('${item.id}')" style="flex:0 0 28px;">${isDone?'✓':''}</div>
+          <div class="shop-info" style="flex:1;min-width:0;">
+            <div class="shop-text">${escapeH(item.text)}</div>
+            ${item.note?`<div class="shop-source">📍 ${escapeH(item.note)}</div>`:''}
+          </div>
+          ${item.budget?`<div class="shop-budget" style="flex:0 0 auto;">${escapeH(item.budget)}</div>`:''}
+          <div class="item-actions">
+            <button class="more-btn" onclick="toggleMorePopover('sh-${item.id}',event)">⋯</button>
+            <div class="more-popover" id="more-sh-${item.id}">
+              <button onclick="openShopEdit('${item.id}')">✏️ 編輯</button>
+              <button class="danger" onclick="deleteShopItem('${item.id}','${cat.id}')">🗑️ 刪除</button>
+            </div>
+          </div>
+        </div>
+        ${isEditing ? `<div class="shop-edit-row" onclick="event.stopPropagation()" style="margin-top:8px;">
+          <input id="sedit-text-${item.id}" type="text" placeholder="品項名稱" value="${escapeH(item.text)}" style="flex:2;">
+          <input id="sedit-budget-${item.id}" type="text" placeholder="預算" value="${escapeH(item.budget||'')}" style="flex:1;min-width:80px;">
+          <input id="sedit-note-${item.id}" type="text" placeholder="備註" value="${escapeH(item.note||'')}" style="flex:1;min-width:80px;">
+          <div style="display:flex;gap:6px;width:100%;">
+            <button class="shop-edit-cancel" onclick="openShopEdit(null)" style="flex:1;">取消</button>
+            <button class="shop-edit-save" onclick="saveShopEdit('${item.id}','${cat.id}')" style="flex:2;">儲存</button>
+          </div>
+        </div>` : ''}
+      </div>`;
+    });
+
+    html += `</div>
+      <div class="shop-cat-add-row">
+        <input type="text" id="shop-add-${cat.id}"
+          placeholder="＋ 新增${cat.name}品項..."
+          onkeydown="if(event.key==='Enter')addShopItem('${cat.id}')">
+        <button class="shop-cat-add-btn" onclick="addShopItem('${cat.id}')" style="background:${color};">＋</button>
+      </div>
     </div>`;
   });
-  html+=`</div>
-    <div class="shop-add-row" style="margin-top:10px;">
-      <input type="text" id="shop-new-input" placeholder="新增購物目標..." onkeydown="if(event.key==='Enter')addShopItem()">
-      <button class="shop-add-btn" onclick="addShopItem()">＋ 新增</button>
-    </div>
-  </div></div>`;
-  document.getElementById('tab-content').innerHTML=html;
+
+  html += '</div>';
+  document.getElementById('tab-content').innerHTML = html;
+  shopCategories.forEach(cat=>{ attachSimpleDrag('shop-list-'+cat.id, 'shop', cat.id); });
 }
+
+function openShopEdit(id){ editingShopId=(editingShopId===id)?null:id; renderShopping(); }
+
 function toggleShop(id){
-  shoppingChecked[id]=!shoppingChecked[id]; saveToStorage('jp2026_shop_checked',shoppingChecked); renderShopping();
+  shoppingChecked[id] = !shoppingChecked[id];
+  if(shoppingChecked[id] && navigator.vibrate) navigator.vibrate([30]);
+  saveToStorage('jp2026_shop_checked', shoppingChecked);
+  renderShopping();
 }
-function deleteShopItem(id){
-  const el=document.getElementById('shop-item-'+id);
-  if(el){ el.classList.add('sliding-out'); setTimeout(()=>{ customShoppingItems=customShoppingItems.filter(c=>c.id!==id); delete shoppingChecked[id]; saveToStorage('jp2026_shop_checked',shoppingChecked); saveToStorage('jp2026_shop_custom',customShoppingItems); renderShopping(); },350); }
+
+
+function saveShopEdit(id, catId){
+  const text   = (document.getElementById('sedit-text-'+id)?.value||'').trim();
+  const budget = (document.getElementById('sedit-budget-'+id)?.value||'').trim();
+  const note   = (document.getElementById('sedit-note-'+id)?.value||'').trim();
+  if(!text) return;
+
+  // Try custom items first
+  const custom = customShoppingItems.find(c=>c.id===id);
+  if(custom){ custom.text=text; custom.budget=budget; custom.note=note; saveToStorage('jp2026_shop_custom',customShoppingItems); }
+  else {
+    // It's a default item — store edit override
+    let edits = loadFromStorage('jp2026_shop_edits',{});
+    edits[id] = {text, budget, note};
+    saveToStorage('jp2026_shop_edits', edits);
+    // Apply to in-memory default
+    shopCategories.forEach(cat=>{
+      const item = cat.items.find(i=>i.id===id);
+      if(item){ item.text=text; item.budget=budget; item.note=note; }
+    });
+  }
+  editingShopId = null;
+  renderShopping();
 }
-function addShopItem(){
-  const input=document.getElementById('shop-new-input'); const text=(input.value||'').trim(); if(!text) return;
-  const id='cs-'+Date.now(); customShoppingItems.push({id,text,budget:'',source:'自訂'});
-  saveToStorage('jp2026_shop_custom',customShoppingItems); input.value=''; renderShopping();
+
+function deleteShopItem(id, catId){
+  const el = document.getElementById('shop-item-'+id);
+  if(!el) return;
+  el.classList.add('sliding-out');
+  setTimeout(()=>{
+    // Remove from custom list
+    customShoppingItems = customShoppingItems.filter(c=>c.id!==id);
+    saveToStorage('jp2026_shop_custom', customShoppingItems);
+    // Mark default item as deleted
+    const isDefault = shopCategories.some(c=>c.items.some(i=>i.id===id));
+    if(isDefault){
+      shoppingChecked['del_'+id] = true; // reuse shoppingChecked as delete flag
+      saveToStorage('jp2026_shop_checked', shoppingChecked);
+    }
+    delete shoppingChecked[id];
+    saveToStorage('jp2026_shop_checked', shoppingChecked);
+    renderShopping();
+  }, 320);
+}
+
+function addShopItem(catId){
+  const input = document.getElementById('shop-add-'+catId);
+  const text  = (input?.value||'').trim();
+  if(!text) return;
+  const id = 'cs-'+Date.now();
+  customShoppingItems.push({id, text, budget:'', note:'自訂', catId});
+  saveToStorage('jp2026_shop_custom', customShoppingItems);
+  if(input) input.value='';
+  renderShopping();
 }
 
 /* =========================================================
