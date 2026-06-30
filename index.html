@@ -1498,7 +1498,7 @@ const tripDays = [
         desc:'江戶時代石板路老街，街區多數小店約 10:00–17:00 營業。必吃「箔一」金箔霜淇淋（09:00–18:00），拿到後 10 秒內快速拍照，風大金箔會飄走！',
         budget:'💴 霜淇淋約 800 JPY',
         nav:'東茶屋街',
-        photo:'Higashi Chaya District',
+        photo:'Higashi Chaya, Kanazawa',
         photoCredit:'Wikimedia Commons',
         tags:[{type:'eat', text:'箔一金箔霜淇淋'},{type:'buy', text:'木虫籠老街拍照'}],
         detail:'📸 必拍 1【木虫籠老街景】：手機人像模式拉近拍攝，背景延伸出江戶時代古色古香的氛圍。\n📸 必拍 2【金箔霜淇淋特寫】：讓孩子雙手捧著霜淇淋、臉湊近準備咬下，太陽光下金箔閃閃發光超吸睛！'
@@ -1614,7 +1614,7 @@ const tripDays = [
         desc:'「飛驒的小京都」！江戶時代富商的黑色木造建築群。外牆漆黑是因幕府禁止華麗建築，富商低調用柿漆煙燻塗黑，但內部卻極為奢華。街道兩側手工藝品店與仙貝店皆有冷氣，隨時可入內避暑！',
         budget:'⏱ 停留 110 分鐘｜點心費約 2,000–3,000 JPY',
         nav:'飛騨高山 古い町並み',
-        photo:'Takayama, Gifu',
+        photo:'Sanmachi Suji Takayama',
         photoCredit:'Wikimedia Commons',
         tags:[{type:'eat', text:'飛驒牛握壽司｜こって牛（蝦餅當盤子）'},{type:'eat', text:'飛驒牛奶（玻璃瓶冰鎮）'},{type:'buy', text:'飛驒娃娃 Sarubobo 除魔幸運物'}],
         detail:'😋 千萬別錯過：\n① 飛驒牛握壽司（こって牛）：炙燒頂級飛驒牛放在香脆蝦餅仙貝上，吃完壽司連盤子一起吃掉，小男孩覺得超神奇！\n② 飛驒牛奶：雜貨店玻璃瓶裝，乳脂肪濃厚，冰鎮後極其過癮。\n📸 必拍：步行 2 分鐘到宮川「中橋（紅橋）」，全家站橋中央，背景翠綠樹木與溪流，色彩強烈的日系大片。\n❄️ 避暑密技：體力下滑就找喫茶店，點一份季節限定「宇治金時抹茶挫冰」迅速降溫。'
@@ -1927,7 +1927,7 @@ async function loadWikiPhoto(title, uid){
     }catch(e){ continue; }
   }
 
-  // Last resort: Wikipedia opensearch → get first result → fetch summary
+  // Last resort 1: Wikipedia opensearch → get first result → fetch summary
   try{
     const searchUrl = `https://en.wikipedia.org/w/api.php?action=opensearch&search=${encodeURIComponent(title)}&limit=1&format=json&origin=*`;
     const sRes = await fetch(searchUrl);
@@ -1939,6 +1939,19 @@ async function loadWikiPhoto(title, uid){
       const d2 = await r2.json();
       const img2 = d2?.thumbnail?.source;
       if(img2){ _wikiImgCache[title]=img2; _applyWikiPhoto(el,img2,title); return; }
+    }
+  }catch(e){}
+
+  // Last resort 2: Wikimedia Commons image search (great for landmarks/streets)
+  try{
+    const commonsUrl = `https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(title)}&gsrnamespace=6&gsrlimit=1&prop=imageinfo&iiprop=url&iiurlwidth=640&format=json&origin=*`;
+    const cRes = await fetch(commonsUrl);
+    const cData = await cRes.json();
+    const pages = cData?.query?.pages;
+    if(pages){
+      const first = Object.values(pages)[0];
+      const imgUrl3 = first?.imageinfo?.[0]?.thumburl || first?.imageinfo?.[0]?.url;
+      if(imgUrl3){ _wikiImgCache[title]=imgUrl3; _applyWikiPhoto(el,imgUrl3,title); return; }
     }
   }catch(e){}
 
