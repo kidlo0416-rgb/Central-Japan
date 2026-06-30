@@ -1498,7 +1498,7 @@ const tripDays = [
         desc:'江戶時代石板路老街，街區多數小店約 10:00–17:00 營業。必吃「箔一」金箔霜淇淋（09:00–18:00），拿到後 10 秒內快速拍照，風大金箔會飄走！',
         budget:'💴 霜淇淋約 800 JPY',
         nav:'東茶屋街',
-        photo:'Higashi Chaya',
+        photo:'Higashi Chaya District',
         photoCredit:'Wikimedia Commons',
         tags:[{type:'eat', text:'箔一金箔霜淇淋'},{type:'buy', text:'木虫籠老街拍照'}],
         detail:'📸 必拍 1【木虫籠老街景】：手機人像模式拉近拍攝，背景延伸出江戶時代古色古香的氛圍。\n📸 必拍 2【金箔霜淇淋特寫】：讓孩子雙手捧著霜淇淋、臉湊近準備咬下，太陽光下金箔閃閃發光超吸睛！'
@@ -1905,16 +1905,15 @@ function renderPhoto(wikiTitle, credit, alt){
 async function loadWikiPhoto(title, uid){
   const el = document.getElementById(uid);
   if(!el) return;
-  if(_wikiImgCache[title]){
-    _applyWikiPhoto(el, _wikiImgCache[title], title);
-    return;
-  }
-  // Try multiple variants: original, underscores→spaces, JP wiki
+  if(_wikiImgCache[title]){ _applyWikiPhoto(el, _wikiImgCache[title], title); return; }
+
   const variants = [
     `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`,
     `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title.replace(/ /g,'_'))}`,
     `https://ja.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`,
+    `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title+',_Japan')}`,
   ];
+
   for(const url of variants){
     try{
       const res = await fetch(url);
@@ -1927,9 +1926,24 @@ async function loadWikiPhoto(title, uid){
       return;
     }catch(e){ continue; }
   }
-  // All failed
-  if(document.getElementById(uid))
-    document.getElementById(uid).innerHTML = '<span style="font-size:20px;">🏞️</span><span style="font-size:10px;color:var(--ink-soft);margin-top:3px;">圖片暫無法載入</span>';
+
+  // Last resort: Wikipedia opensearch → get first result → fetch summary
+  try{
+    const searchUrl = `https://en.wikipedia.org/w/api.php?action=opensearch&search=${encodeURIComponent(title)}&limit=1&format=json&origin=*`;
+    const sRes = await fetch(searchUrl);
+    const sData = await sRes.json();
+    const found = sData?.[1]?.[0];
+    if(found){
+      const url2 = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(found)}`;
+      const r2 = await fetch(url2);
+      const d2 = await r2.json();
+      const img2 = d2?.thumbnail?.source;
+      if(img2){ _wikiImgCache[title]=img2; _applyWikiPhoto(el,img2,title); return; }
+    }
+  }catch(e){}
+
+  const fallback = document.getElementById(uid);
+  if(fallback) fallback.innerHTML = '<span style="font-size:20px;">🏞️</span><span style="font-size:10px;color:var(--ink-soft);margin-top:3px;">圖片暫無法載入</span>';
 }
 
 function _applyWikiPhoto(el, imgUrl, alt){
