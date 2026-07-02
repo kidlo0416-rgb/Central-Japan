@@ -822,6 +822,29 @@ body {
   border-left: 3.5px solid var(--red) !important;
 }
 
+/* ── Collapsible category ── */
+.cat-toggle-btn {
+  width: 100%; background: none; border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0; font-family: inherit; text-align: left;
+  -webkit-tap-highlight-color: transparent;
+}
+.cat-chevron {
+  font-size: 13px; color: var(--ink-soft); transition: transform 0.25s;
+  flex: 0 0 auto; margin-left: 6px;
+}
+.cat-chevron.open { transform: rotate(180deg); }
+.cat-body {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.32s cubic-bezier(0.4,0,0.2,1), opacity 0.25s;
+  opacity: 0;
+}
+.cat-body.open {
+  max-height: 2000px;
+  opacity: 1;
+}
+
 /* Inline edit row for shopping items */
 .shop-edit-row {
   display: flex; gap: 6px; margin-top: 8px; padding-top: 8px;
@@ -2569,6 +2592,21 @@ function getPackingCategoryItems(ci,cat){
   });
   return items;
 }
+function togglePackCat(ci){
+  packCatOpen[ci] = !packCatOpen[ci];
+  const body = document.getElementById('pack-cat-body-'+ci);
+  const chev = document.getElementById('pack-cat-chev-'+ci);
+  if(body){ body.classList.toggle('open', !!packCatOpen[ci]); }
+  if(chev){ chev.classList.toggle('open', !!packCatOpen[ci]); }
+}
+function toggleShopCat(catId){
+  shopCatOpen[catId] = !shopCatOpen[catId];
+  const body = document.getElementById('shop-cat-body-'+catId);
+  const chev = document.getElementById('shop-cat-chev-'+catId);
+  if(body){ body.classList.toggle('open', !!shopCatOpen[catId]); }
+  if(chev){ chev.classList.toggle('open', !!shopCatOpen[catId]); }
+}
+
 function renderPacking(){
   let total=0, done=0;
   packingData.forEach((cat,ci)=>{ getPackingCategoryItems(ci,cat).forEach(it=>{ total++; if(packingChecked[it.key]) done++; }); });
@@ -2581,9 +2619,21 @@ function renderPacking(){
   </div>`;
 
   packingData.forEach((cat,ci)=>{
+    const items = getPackingCategoryItems(ci,cat);
+    const catDone = items.filter(it=>packingChecked[it.key]).length;
+    const isOpen = packCatOpen[ci] !== false; // default open
+    if(packCatOpen[ci] === undefined) packCatOpen[ci] = true;
+
     html += `<div class="glass-card fade-up" style="padding:14px;">
-      <div class="pack-cat-title">${cat.icon} ${cat.cat}</div>
-      <div class="pack-drag-list" id="pack-list-${ci}" data-ci="${ci}">`;
+      <button class="cat-toggle-btn" onclick="togglePackCat(${ci})">
+        <div class="pack-cat-title" style="margin:0;">${cat.icon} ${cat.cat}
+          <span style="font-size:11px;font-weight:400;color:var(--ink-soft);font-family:var(--font-body);margin-left:4px;">${catDone}/${items.length}</span>
+        </div>
+        <span class="cat-chevron ${isOpen?'open':''}" id="pack-cat-chev-${ci}">▾</span>
+      </button>
+      <div class="cat-body ${isOpen?'open':''}" id="pack-cat-body-${ci}">
+        <div style="height:10px;"></div>
+        <div class="pack-drag-list" id="pack-list-${ci}" data-ci="${ci}">`;
 
     getPackingCategoryItems(ci,cat).forEach(it=>{
       const isDone    = !!packingChecked[it.key];
@@ -2625,7 +2675,8 @@ function renderPacking(){
           onkeydown="if(event.key==='Enter')addPackItem(${ci})">
         <button class="shop-cat-add-btn" onclick="addPackItem(${ci})">＋</button>
       </div>
-    </div>`;
+      </div><!-- /cat-body -->
+    </div><!-- /glass-card -->`;
   });
 
   html += '</div>';
@@ -2679,7 +2730,9 @@ function addPackItem(ci){
 /* =========================================================
    RENDER: SHOPPING (categorized)
    ========================================================= */
-let editingShopId = null;   // currently editing item id
+let editingShopId = null;
+let packCatOpen = {};   // ci → true/false
+let shopCatOpen = {};   // catId → true/false   // currently editing item id
 
 function getShopCategoryItems(catId){
   // Default items for this category
@@ -2742,13 +2795,20 @@ function renderShopping(){
     const done    = items.filter(i=>!!shoppingChecked[i.id]).length;
     const allDone = done===items.length && items.length>0;
     const color   = catColors[cat.id]||'var(--red)';
+    const isOpen  = shopCatOpen[cat.id] !== false;
+    if(shopCatOpen[cat.id] === undefined) shopCatOpen[cat.id] = true;
 
     html += `<div class="glass-card shop-cat-block fade-up" style="padding:14px;border-left:3.5px solid ${color};">
-      <div class="shop-cat-header">
-        <div class="shop-cat-title" style="color:${color};">${cat.icon} ${cat.name}</div>
-        <div class="shop-cat-count" style="background:${allDone?'var(--gold)':color};">${done}/${items.length}</div>
-      </div>
-      <div class="shop-drag-list" id="shop-list-${cat.id}" data-catid="${cat.id}">`;
+      <button class="cat-toggle-btn" onclick="toggleShopCat('${cat.id}')">
+        <div class="shop-cat-title" style="color:${color};margin:0;">${cat.icon} ${cat.name}</div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div class="shop-cat-count" style="background:${allDone?'var(--gold)':color};">${done}/${items.length}</div>
+          <span class="cat-chevron ${isOpen?'open':''}" id="shop-cat-chev-${cat.id}">▾</span>
+        </div>
+      </button>
+      <div class="cat-body ${isOpen?'open':''}" id="shop-cat-body-${cat.id}">
+        <div style="height:8px;"></div>
+        <div class="shop-drag-list" id="shop-list-${cat.id}" data-catid="${cat.id}">`;
 
     if(items.length===0){
       html += `<div style="font-size:12px;color:var(--ink-soft);padding:6px 2px;">尚未加入任何品項</div>`;
@@ -2800,7 +2860,8 @@ function renderShopping(){
           onkeydown="if(event.key==='Enter')addShopItem('${cat.id}')">
         <button class="shop-cat-add-btn" onclick="addShopItem('${cat.id}')" style="background:${color};">＋</button>
       </div>
-    </div>`;
+      </div><!-- /cat-body -->
+    </div><!-- /glass-card -->`;
   });
 
   html += '</div>';
